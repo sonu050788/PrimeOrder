@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "290421905540",
+    "project_id": "ordo-ac2ea",
+    "storage_bucket": "ordo-ac2ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290421905540:android:6deff9dcaa210f79eb8ad1",
+        "android_client_info": {
+          "package_name": "com.primeorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "290421905540-gneu7eruncjqp998e06echk1djoqd613.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd0E1Ay_BnBQb8CcLdPt07MO1u3Hooxy0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290421905540-gneu7eruncjqp998e06echk1djoqd613.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
