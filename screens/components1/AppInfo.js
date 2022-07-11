@@ -15,7 +15,6 @@ import Map from "./Map";
     await AsyncStorage.removeItem('isLogin')
     await AsyncStorage.removeItem('Username')
 
-
    }
    componentWillMount(){
     async function requestLocationPermission() {
