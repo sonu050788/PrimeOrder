@@ -1,0 +1,7 @@
+#Mon Jul 11 18:20:05 IST 2022
+base.1=/Users/apple/Documents/GitHub/PrimeOrder/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.1=classes2.dex
+base.0=/Users/apple/Documents/GitHub/PrimeOrder/android/app/build/intermediates/transforms/dexMerger/debug/0
+renamed.1=classes2.dex
+renamed.0=classes.dex
+path.0=classes.dex

@@ -134,6 +134,28 @@ import PushNotification from "react-native-push-notification";
   });
     
   }
+  async loadrelatedstore(){
+    var uid=await AsyncStorage.getItem('ordoid')
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "text/plain");
+    
+    var raw = "{\n    \"__id__\":\"e89acd67-be5f-7112-e56f-62c4105aeb86\"\n}";
+    
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    
+    fetch("http://143.110.178.47/primeorder/getrelatedrecords.php", requestOptions)
+      .then(response => response.json())
+      .then(result =>{ 
+        commonData.setstoresArray(result)
+        console.log('result.length',result[0])
+    })
+      .catch(error => console.log('error', error));
+  }
   async loadstore(){
     var uid=await AsyncStorage.getItem('ordoid')
     var myHeaders = new Headers();
@@ -266,12 +288,13 @@ import PushNotification from "react-native-push-notification";
     this.setState({
       OrdersLoaded:false,
       SKULoaded:false,
-      StoresLoaded:false,
+      StoresLoaded:true,
     })
     this.loadsku();
-this.loadstore();
+// this.loadstore();
+this.loadrelatedstore();
 this.loadorders();
-
+this.loadrelatedstore();
   }
   readstoreDetails(){  
       RNFS.readFile(storepath, 'utf8')
