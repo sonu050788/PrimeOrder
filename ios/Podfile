@@ -49,7 +49,7 @@ pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'GoogleMaps', '2.5.0'
-  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
 end
 
@@ -62,3 +62,4 @@ target 'PrimeOrder-tvOS' do
   end
 
 end
+

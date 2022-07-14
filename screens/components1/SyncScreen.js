@@ -139,7 +139,7 @@ import PushNotification from "react-native-push-notification";
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "text/plain");
     
-    var raw = "{\n    \"__id__\":\"e89acd67-be5f-7112-e56f-62c4105aeb86\"\n}";
+    var raw = "{\n    \"__id__\":\""+uid+"\"\n}";
     
     var requestOptions = {
       method: 'POST',

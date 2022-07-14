@@ -513,7 +513,7 @@ gettypeArray(jsonData,code) {
     }
   }
   
-     else if(code=='PO_16'|| code=='PO_10')
+     else if(code=='PO_06'|| code=='PO_10')
   {
         for(var i=0;i< object.length;i++){
           var days=this.checkoutdateditem(object[i].name_value_list.manufactured_date.value);
@@ -556,8 +556,8 @@ deleteitem=(itemid,id)=> {
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
-        __module_code__: "PO_16",
-        __query__: "po_sku.productid= '" + itemid + "'",
+        __module_code__: "PO_06",
+        __query__: "po_products.productid= '" + itemid + "'",
         __name_value_list__: {
           modified_by_name: "Support Primesophic",
           delete: 1,
@@ -585,8 +585,8 @@ deleteitem=(itemid,id)=> {
       fetch(url, {
         method: 'POST',
         body: JSON.stringify({
-          __module_code__: "PO_16",
-          __query__: "po_sku.productid= '" + itemid + "'"
+          __module_code__: "PO_06",
+          __query__: "po_products.productid= '" + itemid + "'"
         })
       }).then(function (response) {
         return response.json();

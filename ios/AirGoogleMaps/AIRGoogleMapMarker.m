@@ -9,7 +9,9 @@
 
 #import "AIRGoogleMapMarker.h"
 #import <GoogleMaps/GoogleMaps.h>
-#import <React/RCTImageLoaderProtocol.h>
+//#import <React/RCTImageLoaderProtocol.h>
+#import <React-RCTImage/React/RCTImageLoader.h>
+//#import <React/RCTImageLoader.h>
 #import <React/RCTUtils.h>
 #import "AIRGMSMarker.h"
 #import "AIRGoogleMapCallout.h"
@@ -324,12 +326,6 @@ CGRect unionRect(CGRect a, CGRect b) {
   if (_reloadImageCancellationBlock) {
     _reloadImageCancellationBlock();
     _reloadImageCancellationBlock = nil;
-  }
-
-  if (!_realMarker.icon) {
-    // prevent glitch with marker (cf. https://github.com/react-native-maps/react-native-maps/issues/3657)
-    UIImage *emptyImage = [[UIImage alloc] init];
-    _realMarker.icon = emptyImage;
   }
 
   _reloadImageCancellationBlock =

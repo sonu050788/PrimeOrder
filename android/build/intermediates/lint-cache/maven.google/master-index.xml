@@ -184,6 +184,7 @@
   <com.google.android.libraries.maps/>
   <com.google.android.libraries.mapsplatform.secrets-gradle-plugin/>
   <com.google.android.libraries.places/>
+  <com.google.android.libraries.play.games/>
   <com.google.android.material/>
   <com.google.android.mediahome/>
   <com.google.android.odml/>
@@ -198,6 +199,7 @@
   <com.google.ar.sceneform.ux/>
   <com.google.assistant.appactions/>
   <com.google.assistant.suggestion/>
+  <com.google.camerax.effects/>
   <com.google.chromeos/>
   <com.google.devtools.ksp/>
   <com.google.fhir/>
@@ -210,6 +212,7 @@
   <com.google.jacquard/>
   <com.google.mediapipe/>
   <com.google.mlkit/>
+  <com.google.net.cronet/>
   <com.google.oboe/>
   <com.google.prefab/>
   <com.google.test.platform/>
