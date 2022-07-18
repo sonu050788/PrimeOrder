@@ -1,12 +1,9 @@
 {
   "name": "react-native-floating-label-input",
-  "version": "1.3.14",
+  "version": "1.4.2",
   "summary": "A simple and customizable React Native TextInput with it's placeholder always shown.",
   "license": "MIT",
-  "authors": {
-    "name": "Caio Nilton",
-    "email": "cnilton"
-  },
+  "authors": "Caio Nilton <cnilton>",
   "homepage": "https://github.com/Cnilton/react-native-floating-label-input#readme",
   "platforms": {
     "ios": "9.0",
@@ -14,7 +11,7 @@
   },
   "source": {
     "git": "https://github.com/cnilton/react-native-floating-label-input.git",
-    "tag": "v1.3.14"
+    "tag": "v1.4.2"
   },
   "source_files": "apple/**/*.{h,m}",
   "dependencies": {

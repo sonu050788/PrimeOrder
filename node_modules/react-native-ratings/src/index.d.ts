@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ImageURISource, ViewPropTypes } from 'react-native';
+import { ImageStyle, ImageURISource, ViewPropTypes } from 'react-native';
 
 export interface RatingProps {
 
@@ -40,6 +40,11 @@ export interface RatingProps {
    * Color used for the text labels
    */
   ratingTextColor?: string;
+
+  /**
+   * Color used for the background
+   */
+  tintColor?: string;
 
   /**
    * The size of each rating image
@@ -125,11 +130,33 @@ export interface AirbnbRatingProps {
   count?: number;
 
   /**
+   * Size of rating image
+   *
+   * Default is 40
+   */
+  size?: number;
+
+  /**
+   * Whether the rating can be modiefied by the user
+   *
+   * Default is false
+   */
+  isDisabled?: boolean;
+
+
+  /**
    * Determines if to show the reviews above the rating
    *
    * Default is true
    */
   showRating?: boolean;
+
+  /**
+   * Style for star image component
+   *
+   * Default is true
+   */
+  starStyle?: ImageStyle;
 
   /**
    * Callback method when the user finishes rating. Gives you the final rating value as a whole number

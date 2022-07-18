@@ -19,6 +19,10 @@ import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.checkbox.ReactCheckBoxPackage;
 // @react-native-community/netinfo
 import com.reactnativecommunity.netinfo.NetInfoPackage;
+// @react-native-community/toolbar-android
+import com.reactnativecommunity.toolbarandroid.ReactToolbarPackage;
+// @react-native-firebase/app
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 // react-native-camera-kit
 import com.wix.RNCameraKit.RNCameraKitPackage;
 // react-native-device-info
@@ -35,6 +39,8 @@ import com.BV.LinearGradient.LinearGradientPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 // react-native-push-notification
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+// react-native-screens
+import com.swmansion.rnscreens.RNScreensPackage;
 // react-native-signature-capture
 import com.rssignaturecapture.RSSignatureCapturePackage;
 // react-native-uuid-generator
@@ -48,7 +54,7 @@ public class PackageList {
   public PackageList(ReactNativeHost reactNativeHost) {
     this.reactNativeHost = reactNativeHost;
   }
-  
+
   public PackageList(Application application) {
     this.reactNativeHost = null;
     this.application = application;
@@ -77,6 +83,8 @@ public class PackageList {
       new AsyncStoragePackage(),
       new ReactCheckBoxPackage(),
       new NetInfoPackage(),
+      new ReactToolbarPackage(),
+      new ReactNativeFirebaseAppPackage(),
       new RNCameraKitPackage(),
       new RNDeviceInfo(),
       new RNFSPackage(),
@@ -85,6 +93,7 @@ public class PackageList {
       new LinearGradientPackage(),
       new MapsPackage(),
       new ReactNativePushNotificationPackage(),
+      new RNScreensPackage(),
       new RSSignatureCapturePackage(),
       new RNUUIDGeneratorPackage(),
       new VectorIconsPackage()

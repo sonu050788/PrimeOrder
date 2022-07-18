@@ -18,6 +18,7 @@ target 'PrimeOrder' do
   pod 'React-RCTVibration', :path => '../node_modules/react-native/Libraries/Vibration'
   pod 'React-RCTWebSocket', :path => '../node_modules/react-native/Libraries/WebSocket'
   pod 'RNFS', :path => '../node_modules/react-native-fs'
+  
   pod 'React-cxxreact', :path => '../node_modules/react-native/ReactCommon/cxxreact'
   pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
   pod 'React-jsiexecutor', :path => '../node_modules/react-native/ReactCommon/jsiexecutor'
@@ -50,6 +51,7 @@ pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'GoogleMaps', '2.5.0'
 pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+pod 'Google-Maps-iOS-Utils', '~> 4.1.0'
 
 end
 

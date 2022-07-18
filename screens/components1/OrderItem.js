@@ -1601,13 +1601,13 @@ borderRadius:10
 }}
 value={this.state.headernumber}
  />  */}
-<View style={{flexDirection:'row',width:width-80,alignSelf:'center',backgroundColor:'#ffffff',height:60,marginTop:20,justifyContent:'space-between'}}>
+<View style={{flexDirection:'row',width:width-80,alignSelf:'center',backgroundColor:'#ffffff',height:40,marginTop:20,justifyContent:'space-between'}}>
    
-<View style={{width:(width-80)/2,height:60}}>
+<View style={{width:(width-80)/2,height:40}}>
 <Card style={{ height: 40, width: 120, backgroundColor: 'white',alignSelf:'center',justifyContent:'center',borderRadius:8}}>
              <TouchableOpacity    onPress={()=>this.save()}>
             
-            <Text style  ={{fontFamily:"Lato-Regular",height: 40,width:120,textAlign:'center',color: 'green',
+            <Text style  ={{fontFamily:"Lato-Regular",height: 40,width:120,textAlign:'center',color: 'white',
     // fontFamily:"Lato-Bold",
     textAlignVertical:'center',
     // fontWeight: 'bold',
@@ -1622,7 +1622,7 @@ value={this.state.headernumber}
             </LinearGradient>
             </TouchableOpacity> */}
 </View>
-<View style={{width:(width-80)/2,height:60}}>
+<View style={{width:(width-80)/2,height:40}}>
 <Card style={{ height: 40, width: 120, backgroundColor: 'white',alignSelf:'center',justifyContent:'center',borderRadius:8}}>
              <TouchableOpacity    onPress={()=>this.cancel()}>
             
