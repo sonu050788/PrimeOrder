@@ -330,7 +330,7 @@ createbuttonenables=false;
             <SafeAreaView>
                 <View style={{flexDirection:'row',backgroundColor:'#FFFFFF', width:'100%'}}>
                 <TouchableOpacity style={{borderRadius:20, height:60,width:60, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
-                 <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"center", alignSelf:'center'}} />
+                 <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />
                 </TouchableOpacity> 
             <View style={{flexDirection:'row',backgroundColor:'#FFFFFF'}}>
                <Text style={{  color: '#1B1BD0',backgroundColor:' #FFFFFF', fontSize: 20, height: 50,marginHorizontal:70,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:22,alignSelf:'center',textAlign:"center",justifyContent:'center',marginTop:10}}>{Title}</Text>
@@ -401,7 +401,7 @@ createbuttonenables=false;
           </View>
           </View>
           {ispaymentdue!='1'?
-      <TouchableOpacity style={{marginHorizontal:10,marginTop:height/4-120,height:50,width:300,alignSelf:'center',alignSelf:'center'}}
+      <TouchableOpacity style={{marginHorizontal:10,marginTop:height/4-150,height:50,width:300,alignSelf:'center',alignSelf:'center'}}
                 onPress={this.createOrderFunction}
                 >
             <LinearGradient
@@ -410,7 +410,7 @@ createbuttonenables=false;
               <Text style={styles.textSign}>Create an Order</Text>
               {/* <MaterialIcons name="navigate-next" color="#fff" size={20} /> */}
             </LinearGradient>
-          </TouchableOpacity>:<View style={{marginHorizontal:10,marginTop:height/4-120,height:50,width:300,alignSelf:'center',alignSelf:'center'}}
+          </TouchableOpacity>:<View style={{marginHorizontal:10,marginTop:height/4-150,height:50,width:300,alignSelf:'center',alignSelf:'center'}}
                 >
             <LinearGradient
               colors={['#f0f0f0', '#f0f0f0']}

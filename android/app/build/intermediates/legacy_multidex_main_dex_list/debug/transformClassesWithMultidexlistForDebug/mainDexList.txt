@@ -336,6 +336,8 @@ com/primeorder/BuildConfig.class
 com/primeorder/MainApplication$1.class
 com/primeorder/MainApplication.class
 com/reactnativecommunity/netinfo/ConnectivityReceiver.class
+fr/greweb/reactnativeviewshot/ViewShot$Formats.class
+fr/greweb/reactnativeviewshot/ViewShot$Results.class
 javax/annotation/CheckForNull.class
 javax/annotation/CheckForSigned.class
 javax/annotation/CheckReturnValue.class

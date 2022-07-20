@@ -1,6 +1,6 @@
 {
   "name": "react-native-geolocation-service",
-  "version": "5.3.0",
+  "version": "5.3.0-beta.4",
   "summary": "React native geolocation service for iOS and android",
   "homepage": "https://github.com/Agontuk/react-native-geolocation-service",
   "license": "MIT",
@@ -14,7 +14,7 @@
   },
   "source": {
     "git": "https://github.com/Agontuk/react-native-geolocation-service.git",
-    "tag": "v5.3.0"
+    "tag": "v5.3.0-beta.4"
   },
   "source_files": "ios/**/*.{h,m,swift}",
   "swift_versions": "5.0",

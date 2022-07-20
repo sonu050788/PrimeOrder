@@ -1,4 +1,0 @@
-#Wed Jul 13 10:27:48 IST 2022
-base.0=/Users/apple/Documents/GitHub/PrimeOrder/android/app/build/intermediates/transforms/dexMerger/release/0
-renamed.0=classes.dex
-path.0=classes.dex

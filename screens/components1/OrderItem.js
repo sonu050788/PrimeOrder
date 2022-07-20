@@ -1,10 +1,13 @@
 
 import React, { Component,createRef } from 'react';
+
 import { Text,Button,ImageBackground, View,Keyboard, StyleSheet,Dimensions,Image, 
   TouchableOpacity,TouchableHighlight, Alert, ScrollView, FlatList, Platform, Linking, PermissionsAndroid, AsyncStorage ,ActivityIndicator} from 'react-native';
   import {
     Dropdown }
     from 'react-native-material-dropdown';
+    import Share from 'react-native-share';
+
 import { SafeAreaView } from 'react-navigation';
 // import { TextInput } from 'react-native';
 import { TextInput } from 'react-native-paper';
@@ -14,12 +17,22 @@ import { Card } from 'native-base'
 import CommonDataManager from './CommonDataManager';
 import SignatureCapture from 'react-native-signature-capture';
 import Toast from 'react-native-simple-toast';
+// import ViewShot from 'react-native-view-shot';
+import { captureScreen } from "react-native-view-shot";
+
 let orderfromHistory=[]
 let contextvalue=''
 var RNFS = require('react-native-fs');
 var offerpath = RNFS.DocumentDirectoryPath + '/OffersOffline.json';
 import LinearGradient from 'react-native-linear-gradient';
 import { Icon } from 'native-base';
+// const shareOptions = {
+//   title: 'Title',
+//   message: 'Message to share', // Note that according to the documentation at least one of "message" or "url" fields is required
+//   url: 'www.example.com',
+//   subject: 'Subject',
+//   // social: Share.Social.WHATSAPP
+// };
 
 var currentPath = RNFS.DocumentDirectoryPath + '/currentOrder.json';
 var orderpath = RNFS.DocumentDirectoryPath + '/ordersOffline.json';
@@ -41,10 +54,13 @@ let data = [{
 }, {
   value: 'History',
 }];
+
 class OrderItem extends Component {
   UnsentArray=[]
   constructor(props) {
+
     super(props);
+    this.brefs= React.createRef();
     this.state = {
       headertype:'',
       headernumber:'',
@@ -83,6 +99,7 @@ class OrderItem extends Component {
     }
     this.itemList = commonData.getSkuArray();
   }
+  
 //Order Header Implementation
 changedValue=(text, index)=>{
  
@@ -116,7 +133,7 @@ changedValue=(text, index)=>{
    this.setState({headers:false});
    this.forceUpdate();
  }
- loadOffers(){
+ loadOffers=()=>{
   RNFS.readFile(offerpath, 'utf8')
   .then((contents) => {
     // log the file contents
@@ -263,6 +280,21 @@ getofferforId=(id)=>{
     console.log(commonData.getSkuArray())
     this.state.From=''
   }
+  onSharePress = () =>{ 
+    var base64data="";
+    RNFS.readFile("https://engineering.fb.com/wp-content/uploads/2016/04/yearinreview.jpg", 'base64')
+.then(res =>{
+  console.log(res,'fdfdfdfxdfxdxd');
+  base64data=res;
+});
+const shareOptions = {
+  title: 'Title',
+  message: 'Message to share', // Note that according to the documentation at least one of "message" or "url" fields is required
+  url: 'www.example.com',
+  subject: 'Subject',
+  // social: Share.Social.WHATSAPP
+};
+    Share.share(shareOptions);}
   ReloadItems() {
     this.setState({
       loading: false,
@@ -434,7 +466,7 @@ getofferforId=(id)=>{
     this.focusListener = navigation.addListener("didFocus", () => {
       // The screen is focused
       // Call any action
-      
+    
       this.setState({couponcode:commonData.getCouponDetails()})
       contextvalue=this.props.navigation.getParam('From','')
       this.ReloadItems();
@@ -1093,6 +1125,77 @@ DeleteFunction =async ()=> {
     this.state.itemImage=item.imgsrc
     this.forceUpdate();
   }
+  captureAndShareScreenshot = () => {
+    var that =this;
+    captureScreen({
+      format: "png",
+      quality: 0.8
+    })
+    .then(
+      uri => {console.log("Image saved to", uri);
+      RNFS.readFile(uri, 'base64')
+  .then((contents) => {
+   
+    console.log(contents+"vdvgvg")
+    let urlString = 'data:image/png;base64,'+contents;
+    let options = {
+      title: 'Ordo Order Reciept',
+      message: 'Please find the Confirmation Reciept',
+      url: urlString,
+      type: 'image/png',
+    };
+    Share.open(options)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    err && console.log(err);
+  });
+    // Share.share(options)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     err && console.log(err);
+    //   });
+  })
+  .catch((err) => {
+    console.log(err.message, err.code);
+  });
+      // RNFS.readFile(uri, 'base64').then((res) => {
+       
+      //   let urlString = 'data:image/jpeg;base64,' + res;
+      //   console.log(urlString+"vdvgvg")
+        
+       
+      // });
+    },
+      error => console.error("Oops, snapshot failed", error)
+    );
+    return;
+    that.refs.viewShot.capture().then((uri) => {
+      console.log(uri+"vdvgvg")
+      RNFS.readFile(uri, 'base64').then((res) => {
+       
+        let urlString = 'data:image/jpeg;base64,' + res;
+        console.log(urlString+"vdvgvg")
+        
+        let options = {
+          title: 'Share Title',
+          message: 'Share Message',
+          url: urlString,
+          type: 'image/jpeg',
+        };
+        Share.open(options)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            err && console.log(err);
+          });
+      });
+    });
+  };
 
   render() {
    
@@ -1123,7 +1226,9 @@ DeleteFunction =async ()=> {
 		sign.current.saveImage();
     // Alert.alert("Message","");
     this.setState({SignitatureCapture:false});
-    this.sendOrderFunction();
+    // this.onSharesPress();
+    this.captureAndShareScreenshot();
+    // this.sendOrderFunction();
 	};
 
 	const resetSign1 = () => {
@@ -1153,147 +1258,145 @@ DeleteFunction =async ()=> {
     if (this.state.SignitatureCapture == true) {
       this.state.signinitemsarray=[...this.state.arrayHolder];
       return (
-            <View style={styles.container}>
+       
+<View style={styles.container}>
      
-    <TouchableOpacity style={styles.backStyle} onPress={() => {
-							closeSign();
-						}}>
-    <Image transition={false}  source={require('../components1/images/close_btn.png')} style={{width: 30,height:30,alignSelf:'center' }} > 
+      <TouchableOpacity style={styles.backStyle} onPress={() => {
+      closeSign();
+      }}>
+      <Image transition={false}  source={require('../components1/images/close_btn.png')} style={{width: 30,height:30,alignSelf:'center' }} > 
+      </Image> 
+      </TouchableOpacity>
+      <View style={{ flexDirection: 'row',alignSelf:'center', marginTop:10 , width:width-20,backgroundColor:'#ffffff'}} >
+
+          <Text style={styles.titleStyle}>
+          Order Review 
+          </Text>
+          <Image transition={false}  source={require('../components1/images/OrDo.png')} style={{ marginTop: 10, marginHorizontal: width-260 ,width: 100,height:40,alignSelf:'center' }} > 
           </Image> 
-    </TouchableOpacity>
-        <View style={{ flexDirection: 'row',alignSelf:'center', marginTop:10 , width:width-20,backgroundColor:'#ffffff'}} >
-        
-        <Text style={styles.titleStyle}>
-			Order Review 
-				</Text>
-        <Image transition={false}  source={require('../components1/images/OrDo.png')} style={{ marginTop: 10, marginHorizontal: width-260 ,width: 100,height:40,alignSelf:'center' }} > 
-          </Image> 
-      
-          </View>
-     
-        
-        <Text style={{color:'#34495A',fontSize:11,borderBottomColor:'#7A7F85',fontFamily:'Lato-Bold',marginHorizontal:20}}>{commonData.getActiveCustName()} </Text>
+
+      </View>
+
+
+      <Text style={{color:'#34495A',fontSize:11,borderBottomColor:'#7A7F85',fontFamily:'Lato-Bold',marginHorizontal:20}}>{commonData.getActiveCustName()} </Text>
       <Text style={{color:'#34495A',fontSize:10,borderBottomColor:'#7A7F85',fontFamily:'Lato-Regular',marginHorizontal:20}}>{commonData.getActiveAdress()}</Text>
       <Text style={{color:'#34495A',fontSize:10,borderBottomColor:'#7A7F85',fontFamily:'Lato-Regular',marginHorizontal:20}}>GSTIN: {Configuration.GSTIN}</Text>
 
-                <View style={{flexGrow:0.25, height:900,backgroundColor: '#ffffff'}}>
-                <View style={{ flexDirection: "row",justifyContent:'center',alignItems:'center',  marginTop:10,backgroundColor:'#d5d5d5',width:width-10,alignSelf:'center' }} >
-   
-                <Text style={{color:'#34495A',fontSize:11,borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold', width:width/2.5,marginHorizontal:20}}>Description</Text>
+      <View style={{flexGrow:0.25, height:900,backgroundColor: '#ffffff'}}>
+      <View style={{ flexDirection: "row",justifyContent:'center',alignItems:'center',  marginTop:10,backgroundColor:'#d5d5d5',width:width-10,alignSelf:'center' }} >
+
+      <Text style={{color:'#34495A',fontSize:11,borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold', width:width/2.5,marginHorizontal:20}}>Description</Text>
       <Text style={{color:'#34495A',fontSize:11,borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold',width:width/4.5,marginHorizontal:2}}>Qty</Text>
       <Text style={{color:'#34495A',fontSize:11,borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold',width:width/3.5,marginHorizontal:2}}>Price</Text>
-</View>
-<View style={{height:130}}>
-              
-              <ScrollView style={{ backgroundColor: '#FFFFFF',flexGrow:1}} 
-                contentContainerStyle={styles.scrollview}
-                scrollEnabled={scrollEnabled}
-                onContentSizeChange={this.onContentSizeChange}>
-                <View style={{flexGrow:1,justifyContent:"space-between",padding:5,backgroundColor: '#FFFFFF',marginTop:0,height:height-290}}>
-                    <FlatList
-                        data={this.state.signinitemsarray}
-                        renderItem={this.SignItemsView}
-                        extraData={this.state.refresh}
-                        keyExtractor={(item, index) => toString(index,item)}
-                        ItemSeparatorComponent={this.renderSeparator} 
-                    />
-                    </View>
-                </ScrollView>
-             </View>
-             <View style={{flexDirection:'row',height:30,width:width-10,alignSelf:'center',marginTop:30,alignItems:'center',paddingBottom:10}}>
-<View style={styles.parent}>
-          <TextInput
+      </View>
+      <View style={{height:130}}>
+
+          <ScrollView style={{ backgroundColor: '#FFFFFF',flexGrow:1}} 
+          contentContainerStyle={styles.scrollview}
+          scrollEnabled={scrollEnabled}
+          onContentSizeChange={this.onContentSizeChange}>
+              <View style={{justifyContent:"space-between",padding:5,backgroundColor: '#FFFFFF',marginTop:0,height:height-290}}>
+                <FlatList
+                data={this.state.signinitemsarray}
+                renderItem={this.SignItemsView}
+                extraData={this.state.refresh}
+                keyExtractor={(item, index) => toString(index,item)}
+                ItemSeparatorComponent={this.renderSeparator} 
+                />
+              </View>
+          </ScrollView>
+      </View>
+      <View style={{flexDirection:'row',height:30,width:width-10,alignSelf:'center',marginTop:30,alignItems:'center',paddingBottom:10}}>
+          <View style={styles.parent}>
+            <TextInput
 
 
-label="Coupon Code"
-//  placeholder="Enter Coupon Code"              
-type="outlined"
-   placeholderTextColor='#dddddd'
-   underlineColor='#dddddd'
-   activeUnderlineColor='#dddddd'
-   outlineColor="#dddddd"
-   selectionColor="#dddddd"
-   autoCompleteType='off'
-   autoCorrect={false}
+            label="Coupon Code"
+            //  placeholder="Enter Coupon Code"              
+            type="outlined"
+            placeholderTextColor='#dddddd'
+            underlineColor='#dddddd'
+            activeUnderlineColor='#dddddd'
+            outlineColor="#dddddd"
+            selectionColor="#dddddd"
+            autoCompleteType='off'
+            autoCorrect={false}
 
-keyboardType="default"
-autoCapitalize="none"
-underlineColorAndroid="#dddddd"
-onChangeText={(value) => this.setState({couponcode:value})}
-clearButtonMode="always"
-ref={username => { this.textInput = username }}
-style={{
-backgroundColor:'white',
-width:width-170,
-color: 'red',
+            keyboardType="default"
+            autoCapitalize="none"
+            underlineColorAndroid="#dddddd"
+            onChangeText={(value) => this.setState({couponcode:value})}
+            clearButtonMode="always"
+            ref={username => { this.textInput = username }}
+            style={{
+            backgroundColor:'white',
+            width:width-170,
+            color: 'red',
 
-}}
-value={this.state.couponcode}
-          />
-          <TouchableOpacity
+            }}
+            value={this.state.couponcode}
+            />
+            <TouchableOpacity
             style={styles.closeButtonParent}
             onPress={() => this.setState({couponcode:""})}
-          >
+            >
             <Image
-              style={styles.closeButton}
-              source={require("./images/minus2.png")}
+            style={styles.closeButton}
+            source={require("./images/minus2.png")}
             />
-          </TouchableOpacity>
-        </View>
-<TouchableOpacity onPress={()=>this.getofferforId(this.state.couponcode)} style={{width:100,height:40,borderWidth:1,borderColor:'#1B1BD0',backgroundColor:'#FFFFFF',borderRadius:5,marginTop:-10}}><Text style={{textAlign:'center',textAlignVertical:'center',color:'#1B1BD0',height:40}}>APPLY</Text></TouchableOpacity>
-</View>           
-                    <View style={{height:400,backgroundColor:'#ffffff'}}>
-                        <View style={{height:30,flexDirection:'column',width:width-30,alignself:'center'}}>
-                        <Text style={{ width:width-30,fontFamily:'Lato-Regular',fontSize:11,textAlign:'right'}}>Sub-Total :{commonData.getTotalPrice()}</Text>
-                        <Text style={{width:width-30,fontFamily:'Lato-Regular',fontSize:11,textAlign:'right'}}>GST(18%) : ₹{gst}</Text>
-                        <Text style={{width:width-30,fontFamily:'Lato-Regular',fontSize:11,textAlign:'right'}}>Saving : ₹0</Text>
-                  
-                    <Text style={{ width:width-30,textAlign:'right',fontFamily:'Lato-Bold',fontSize:12,textAlign:'right'}}>GRAND TOTAL : {grandtotal}</Text>
-                   
-                    </View>
-<Text style={{ marginHorizontal: 30 ,marginTop:20,fontFamily:"Lato-Regular",fontSize:10}}>SIGN BELOW</Text>
-                    <SignatureCapture
-                        style={styles.signature}
-                        ref={sign}
-                        onSaveEvent={_onSaveEvent}
-                        onDragEvent={_onDragEvent}
-                        showNativeButtons={false}
-                        showBorder={true}
-                        minStrokeWidth={0.1}
-                        strokeColor={'black'}
-                        maxSize={150}
-                        backgroundColor="#f5f5f5"
-                        showTitleLabel={true}
-                        viewMode={'portrait'}
-                    />
-                    	<TouchableOpacity
-						style={styles.buttonStylereset}
-						onPress={() => {
-							resetSign1();
-						}}>
-					
-            <Text style={{width:100, color:'red',height:30,textAlign:'center',textDecorationLine: 'underline',
-            textShadowColor: 'rgba(0, 0, 0, 0.25)',
-  textShadowOffset: {width: -1, height: 1},
-  textShadowRadius: 10
-  }}>Clear Signature</Text>
-					</TouchableOpacity>
-                   
-			
-					<TouchableHighlight
-						style={styles.ProceedbuttonStyle}
-						onPress={() => {
-							saveSign1();
-						}}>
-						<Text style={{color:'#1B1BD0',fontFamily:'Lato-Bold'}}>Confirm Order</Text>
-					</TouchableHighlight>
-          </View>
-				</View>
-                    <View  >
-                    
-                         </View>
+            </TouchableOpacity>
+      </View>
+      <TouchableOpacity onPress={()=>this.getofferforId(this.state.couponcode)} style={{width:100,height:40,borderWidth:1,borderColor:'#1B1BD0',backgroundColor:'#FFFFFF',borderRadius:5,marginTop:-10}}><Text style={{textAlign:'center',textAlignVertical:'center',color:'#1B1BD0',height:40}}>APPLY</Text></TouchableOpacity>
+      </View>           
+      <View style={{height:400,backgroundColor:'#ffffff'}}>
+      <View style={{height:30,flexDirection:'column',width:width-30,alignself:'center'}}>
+      <Text style={{ width:width-30,fontFamily:'Lato-Regular',fontSize:11,textAlign:'right'}}>Sub-Total :{commonData.getTotalPrice()}</Text>
+      <Text style={{width:width-30,fontFamily:'Lato-Regular',fontSize:11,textAlign:'right'}}>GST(18%) : ₹{gst}</Text>
+      <Text style={{width:width-30,fontFamily:'Lato-Regular',fontSize:11,textAlign:'right'}}>Saving : ₹0</Text>
 
-                </View>
+      <Text style={{ width:width-30,textAlign:'right',fontFamily:'Lato-Bold',fontSize:12,textAlign:'right'}}>GRAND TOTAL : {grandtotal}</Text>
+
+      </View>
+      <Text style={{ marginHorizontal: 30 ,marginTop:20,fontFamily:"Lato-Regular",fontSize:10}}>SIGN BELOW</Text>
+      <SignatureCapture
+      style={styles.signature}
+      ref={sign}
+      onSaveEvent={_onSaveEvent}
+      onDragEvent={_onDragEvent}
+      showNativeButtons={false}
+      showBorder={true}
+      minStrokeWidth={0.1}
+      strokeColor={'black'}
+      maxSize={150}
+      backgroundColor="#f5f5f5"
+      showTitleLabel={true}
+      viewMode={'portrait'}
+      />
+      <TouchableOpacity
+      style={styles.buttonStylereset}
+      onPress={() => {
+      resetSign1();
+      }}>
+
+      <Text style={{width:100, color:'red',height:30,textAlign:'center',textDecorationLine: 'underline',
+      textShadowColor: 'rgba(0, 0, 0, 0.25)',
+      textShadowOffset: {width: -1, height: 1},
+      textShadowRadius: 10
+      }}>Clear Signature</Text>
+      </TouchableOpacity>
+      <TouchableHighlight
+      style={styles.ProceedbuttonStyle}
+      onPress={() => {
+      saveSign1();
+      }}>
+      <Text style={{color:'#1B1BD0',fontFamily:'Lato-Bold'}}>Confirm Order</Text>
+      </TouchableHighlight>
+      </View>
+      </View>
+      <View>
+  </View>
+</View>
+                
       );
     }
     if(this.state.headers){
@@ -1601,13 +1704,13 @@ borderRadius:10
 }}
 value={this.state.headernumber}
  />  */}
-<View style={{flexDirection:'row',width:width-80,alignSelf:'center',backgroundColor:'#ffffff',height:40,marginTop:20,justifyContent:'space-between'}}>
+<View style={{flexDirection:'row',width:width-80,alignSelf:'center',backgroundColor:'#ffffff',height:60,marginTop:20,justifyContent:'space-between'}}>
    
-<View style={{width:(width-80)/2,height:40}}>
+<View style={{width:(width-80)/2,height:60}}>
 <Card style={{ height: 40, width: 120, backgroundColor: 'white',alignSelf:'center',justifyContent:'center',borderRadius:8}}>
              <TouchableOpacity    onPress={()=>this.save()}>
             
-            <Text style  ={{fontFamily:"Lato-Regular",height: 40,width:120,textAlign:'center',color: 'white',
+            <Text style  ={{fontFamily:"Lato-Regular",height: 40,width:120,textAlign:'center',color: 'green',
     // fontFamily:"Lato-Bold",
     textAlignVertical:'center',
     // fontWeight: 'bold',
@@ -1622,7 +1725,7 @@ value={this.state.headernumber}
             </LinearGradient>
             </TouchableOpacity> */}
 </View>
-<View style={{width:(width-80)/2,height:40}}>
+<View style={{width:(width-80)/2,height:60}}>
 <Card style={{ height: 40, width: 120, backgroundColor: 'white',alignSelf:'center',justifyContent:'center',borderRadius:8}}>
              <TouchableOpacity    onPress={()=>this.cancel()}>
             
@@ -1896,6 +1999,73 @@ SignItemsView = ({ item, index }) => (
  
 )
 sampleRenderItem = ({ item, index }) => (
+        
+  <View style={styles.flatliststyle}>
+  <ImageBackground source={require('./images/itembg.png')} style={styles.flatrecord}>
+    <View style={{flexDirection:'row'}}>
+    <View style={{flexDirection:"row",backgroundColor:'#ffffff',width:100}}>
+    <TouchableOpacity style={{height: 100, width: 100,marginHorizontal:19,marginTop:27}} onPress={() => this.props.navigation.navigate('Itemdetails',
+               {storeID:item.itemid,desc:item.description,onHand:item.stock,itemImage:require('./images/itemImage/IRG-14.jpg'), qty:item.qty,from:'SKU',price:item.price,upc:item.upc,weight:item.weight})}>
+        <Image source={require('./images/itemImage/IRG-14.jpg')} style={{ height: 80, width: 80, marginTop: 10,marginHorizontal:10, resizeMode: 'contain' }} />
+        <Text  style={{color:'#34495A',fontFamily:'Lato-Regular',width:100,textAlign:'center'}}>{item.itemid}</Text>
+    {/* <Image source={require('./images/line.png')} style={{ height: 100, width: 80,marginHorizontal:90, resizeMode: 'contain' }} /> */}
+   
+    </TouchableOpacity>
+    {/* <Text  style={{color:'#34495A',fontFamily:'Lato-Regular',marginTop:120,marginHorizontal:-80}}>{item.itemid}</Text>
+    <Image source={require('./images/line.png')} style={{ height: 100, width: 80, marginTop: 33,marginHorizontal:63, resizeMode: 'contain' }} /> */}
+    </View>
+    <View style={{marginHorizontal:20,flexDirection:'column'}}>
+      <Text style={{color:'#7A7F85',borderBottomColor:'#7A7F85',fontFamily:'Lato-Regular',marginTop:23}}>Net wt: {Number(item.weight)} {item.unitofmeasure}</Text>
+      <Image source={require('./images/dash.png')} style={{ height: 10, width: 80, resizeMode: 'contain' }} />
+      <Text style={{color:'#34495A',fontWeight:"500",fontFamily:'Lato-Bold',fontSize:14,marginTop:0,width:190,height:35}}>{item.description}</Text>
+      {(Number(item.stock)>0)?<Text style={{color:'#1D8815',fontFamily:'Lato-Regular',fontSize:12,marginTop:10}}>{item.stock} - On Hand</Text>:<Text style={{color:'red',fontFamily:'Lato-Regular',fontSize:12,marginTop:10}}>Out of stock!!</Text>}
+      <Text style={{color:'grey',fontFamily:'Lato-Bold',fontSize:12,marginTop:0}}>{item.noofdays} days Older</Text>
+      </View>
+      <View style={{height: 20, width: 20,marginHorizontal:-10,flexDirection:'column',alignItems:'center'}}>
+    {/* <View style={{height: 20, width: 20, marginTop:27,marginHorizontal:-80}}> */}
+     {/* <TouchableOpacity style={{marginTop:30,marginHorizontal:90}} onPress={() => Alert.alert(
+        //title
+        'Confirmation',
+        //body
+        'Do you want to delete the selected Item?',
+        [
+          { text: 'Yes', onPress: () => this.deleteItms(item.itemid) },
+          { text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel' },
+        ],
+        { cancelable: false }
+        //clicking out side of alert will not cancel
+      )}>
+    <Image transition={false} source={require('./images/minus2.png')} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+    </TouchableOpacity> */}
+    <Text style={{color:'#000000',borderBottomColor:'#000000',fontWeight:'100',textAlign:'center',fontFamily:'Lato-Bold',width:60,marginTop:20}}>₹{Number(item.price)}</Text>
+
+    {/* </View> */}
+    </View>
+    <View style={{ width: 120, height: 40, flexDirection: 'row',marginTop:88,marginHorizontal:-110, borderRadius: 5, borderColor: 'grey', backgroundColor: '#ffffff' }}>
+            <TouchableOpacity onPress={()=>{(Number(item.stock)>0)?this.AddItem(Number(item.qty),index,'-'):Alert.alert("Warning","Item is out of Stock")}} style={{ width: 30, height: 40 }}>
+                {/* <Image source={require('./images/minus.png')} style={{ width: 30, height: 30, marginTop: 12, marginHorizontal: 6 }}></Image> */}
+                <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
+            borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
+           fontSize: 16,borderRadius:8, width: 40, height: 30,marginTop:11,marginHorizontal:10}}>-</Text>
+           
+            </TouchableOpacity>
+            <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
+            borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
+           fontSize: 12,borderRadius:8, width: 40, height: 30,marginTop:12,marginHorizontal:10}}>{Number(item.qty)}</Text>
+            <TouchableOpacity onPress={()=>{(Number(item.stock)>0)?this.AddItem(Number(item.qty),index,'+'):Alert.alert("Warning","Item is out of Stock")}} style={{ width: 30, height: 40 }} >
+                <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
+            borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
+           fontSize: 16,borderRadius:8, width: 40, height: 30,marginTop:11,marginHorizontal:10}}>+</Text>
+           
+            </TouchableOpacity>
+        </View>
+    </View>
+ </ImageBackground>
+ </View>
+    
+   
+)
+sampleRenderItem9 = ({ item, index }) => (
         
   <View style={styles.flatliststyle}>
     <ImageBackground source={require('./images/itembg.png')} style={styles.flatrecord}>

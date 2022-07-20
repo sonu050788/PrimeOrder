@@ -141,7 +141,7 @@ return (
   <View style={{backgroundColor:'#FFFFFF',flex:1}}>
       <View style={{marginTop:30,width:width-30,alignSelf:'center'}}>
             <TouchableOpacity style={{borderRadius:20, height:60,width:60, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
-                 <Image source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"center", alignSelf:'center'}} />
+                 <Image source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />
           </TouchableOpacity> 
             <Text style={{  color: '#1B1BD0',backgroundColor:'#FFFFFF', fontSize: 20, height: 50,marginHorizontal:10, marginTop: -50,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:20,alignSelf:'center',textAlign:"center"}}>Pending Orders/Returns</Text>
             </View>

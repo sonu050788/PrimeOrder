@@ -192,7 +192,7 @@ fetch("http://143.110.178.47/primeorder/get_data_s.php", requestOptions)
            {/* </View> */}
            <View style={{flexDirection:'row',marginTop:0}}>
         <TouchableOpacity style={{borderRadius:20, height:60,width:width/3-20, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
-                 <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"center", alignSelf:'center'}} />
+                 <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />
           </TouchableOpacity> 
           <Text style={{width:width/2-10,alignSelf:'center',textAlign:'center',fontFamily:'Lato-Bold',fontSize:20}}>My Insights<Text style={{fontFamily:"Lato-Bold",fontSize:12}}>{"\n"}(Sales Dashboard)</Text></Text>
 

@@ -196,7 +196,7 @@ that.setState({JSONResult:temparray});
              
              <View style={{flexDirection:'row',marginTop:30}}>
         <TouchableOpacity style={{borderRadius:20, height:60,width:30,marginHorizontal:20, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
-                 <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"center", alignSelf:'center'}} />
+                 <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />
           </TouchableOpacity> 
             <Text style={{ marginTop:10, color: '#1B1BD0',backgroundColor:' #FFFFFF',fontSize: 20,width:width-100, height: 50,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:20,alignSelf:'center',textAlign:"center",justifyContent:'center'}}>Offers & Promotions</Text>
             

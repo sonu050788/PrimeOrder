@@ -327,7 +327,7 @@ this.forceUpdate();
           <View style={{ backgroundColor: '#FFFFFF',flex:1}}>
                    <View style={{flexDirection:'row',marginTop:30}}>
          <TouchableOpacity style={{borderRadius:20, height:60,width:60, justifyContent:'center', alignItems:'center' }} onPress={()=>{this.state.itemID="";commonData.setinventoryItemsArray("");this.props.navigation.goBack()}}>           
-                  <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"center", alignSelf:'center'}} />
+                  <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />
            </TouchableOpacity> 
              <Text style={{  color: '#1B1BD0',backgroundColor:' #FFFFFF',fontSize: 20,width:width-90, height: 50,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:22,alignSelf:'center',textAlign:"center",justifyContent:'center'}}>Stock Management</Text>
        </View> 

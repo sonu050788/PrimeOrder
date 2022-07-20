@@ -1,8 +1,10 @@
 // @flow
 
-export default () => {
+import variable from "./../variables/platform";
+
+export default (variables /*: * */ = variable) => {
   const switchTheme = {
-    marginVertical: -5
+    marginVertical: -5,
   };
 
   return switchTheme;

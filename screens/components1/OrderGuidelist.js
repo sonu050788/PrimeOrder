@@ -253,7 +253,7 @@ this.setState({ JSONResult: newData });
         <View style={{backgroundColor:'#F5FDFE',flex:1}}>
             <View style={{marginTop:30}}>
             <TouchableOpacity style={{borderRadius:20, height:60,width:60, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
-                 <Image source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"center", alignSelf:'center'}} />
+                 <Image source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />
           </TouchableOpacity> 
             <Text style={{  color: '#5B139A',backgroundColor:'#F5FDFE', fontSize: 20, height: 50,marginHorizontal:10, marginTop: -50,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:22,alignSelf:'center',textAlign:"center"}}>PackageProducts Details</Text>
             </View>

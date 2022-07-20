@@ -95,7 +95,7 @@ getListCall() {
   this.state.searchmsg=''
   storeData=commonData.getstoresArray()
   //Sort by Customer ID
-  storeData.sort((a, b) => (a.customerid > b.customerid) ? 1 : -1)
+  storeData.sort((a, b) => (a.storeid > b.storeid) ? 1 : -1)
   this.setState({ data:storeData });
   this.forceUpdate();
 }
@@ -111,7 +111,7 @@ searchFilterFunction = (text) => {
     return
 } 
   const newData = this.state.data.filter(item => {      
-    const itemData = `${item.customerid.toUpperCase()} ${item.addressline2.toUpperCase()} ${item.postalcode.toUpperCase()} ${item.name.toUpperCase()}`;
+    const itemData = `${item.storeid.toUpperCase()} ${item.addressline2.toUpperCase()} ${item.postalcode.toUpperCase()} ${item.name.toUpperCase()}`;
    
      const textData = text.toUpperCase();
       
@@ -134,36 +134,10 @@ renderComp=(value)=>{
   
 }
 synccall(){
-  // this.loadstore();
-  // this.readstoreDetails();
-  this.loadrelatedstore();
+  this.loadstore();
+  this.readstoreDetails();
 }
-async loadrelatedstore(){
-  var that=this;
-  that.setState({ loading: true });
-  var uid=commonData.getUserID();
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "text/plain");
-  var raw = "{\n    \"__id__\":\""+uid+"\"\n}";
-  // var raw = "{\n    \"__id__\":\"e89acd67-be5f-7112-e56f-62c4105aeb86\"\n}";
-  
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow'
-  };
-  
-  fetch("http://143.110.178.47/primeorder/getrelatedrecords.php", requestOptions)
-    .then(response => response.json())
-    .then(result =>{ 
-      commonData.setstoresArray(result)
-      that.setState({ loading: false });
-      that.forceUpdate();
-      console.log('result.length',result[0])
-  })
-    .catch(error => console.log('error', error));
-}
+
 AddItemsToOrder=(itemarray)=>{
   for(var i=0;i<itemarray.length;i++){
     if(this.itempresentinArray(itemarray[i].name_value_list.productid.value)===-1)
@@ -232,7 +206,7 @@ AddItemsToOrder=(itemarray)=>{
   var val= UUID.v4();
   commonData.setOrderId(val);
   var address=item.addressline1+','+item.addressline2+','+ item.state+item.country+'-'+item.postalcode;
-  commonData.setCustInfo(item.customerid,item.name,address);
+  commonData.setCustInfo(item.storeid,item.name,address);
   commonData.setContext('OG');
   this.props.navigation.navigate('OrderGuide',{ From: '',TYPE:"OG"  }) ;
  }
@@ -249,7 +223,7 @@ AddItemsToOrder=(itemarray)=>{
           this.state.orderid=val
           this.state.id=val
           var address=item.addressline1+','+item.state +'-'+item.postalcode
-          commonData.setCustInfo(item.customerid,item.name,address)
+          commonData.setCustInfo(item.storeid,item.name,address)
           finishedGettingItems=false
           this.getOrderListCall(item.name)
       
@@ -273,7 +247,7 @@ AddItemsToOrder=(itemarray)=>{
       this.state.id=val
      
       var address=item.addressline1+','+item.state +'-'+item.postalcode
-      commonData.setCustInfo(item.customerid,item.name,address)
+      commonData.setCustInfo(item.storeid,item.name,address)
       finishedGettingItems=false
       this.getreturnList(item.name);
      
@@ -305,7 +279,7 @@ AddItemsToOrder=(itemarray)=>{
       let TYPE=this.props.navigation.getParam('TYPE','');
       commonData.setcustomerName(item.name);
       this.props.navigation.navigate('CreateOrder', {
-        storeID: item.customerid,
+        storeID: item.storeid,
         name: item.name,
         imageLoc: this.imgloc,
         address:item.addressline1,
@@ -610,7 +584,7 @@ let orderList=[]
   console.log("-------- error ------- " + error);
 });
 }
-async getOrderListCall1(customerid) {
+async getOrderListCall1(storeid) {
   let variable=commonData.getusername();
 OrderHistoryArray=[]
 let orderList=[]
@@ -620,7 +594,7 @@ let orderList=[]
      method: "POST",
               body: JSON.stringify({
                 __module_code__: "PO_14",
-                __query__:"customerid='"+customerid+"'AND username = '" + variable + "'",
+                __query__:"customerid='"+storeid+"'AND username = '" + variable + "'",
                   __offset__:0,
               })
      
@@ -799,7 +773,7 @@ sampleRenderItem = ({ item, index }) => (
     <TouchableOpacity style={{height: 100, width: 80,marginHorizontal:39,marginTop:27}}>
         <Image transition={false} source={this.imgloc} style={{ height: 80, width: 80, marginTop: 10,marginHorizontal:0, resizeMode: 'contain' }} />
     </TouchableOpacity>
-    <Text  style={{color:'#34495A',textAlign:'center',fontFamily:'Lato-Regular',marginTop:110,marginHorizontal:-110,width:60,fontSize:13}}>{item.customerid}</Text>
+    <Text  style={{color:'#34495A',fontFamily:'Lato-Regular',marginTop:110,marginHorizontal:-110,fontSize:13}}>{item.storeid}</Text>
     <Image transition={false} source={require('../components1/images/line.png')} style={{ height: 100, width: 80, marginTop: 33,marginHorizontal:95, resizeMode: 'contain' }} />
     </View>
     <View style={{marginHorizontal:-110,}}>

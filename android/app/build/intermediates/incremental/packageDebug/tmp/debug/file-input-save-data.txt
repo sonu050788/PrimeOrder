@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Jul 11 18:20:07 IST 2022
+#Wed Jul 20 14:50:01 IST 2022
 70.path=fonts/Lato-Bold.ttf
 64.base=/Users/apple/Documents/GitHub/PrimeOrder/android/app/build/intermediates/transforms/mergeJniLibs/debug/0
 47.base=/Users/apple/Documents/GitHub/PrimeOrder/android/app/build/intermediates/transforms/mergeJniLibs/debug/0

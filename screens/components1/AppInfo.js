@@ -4,7 +4,6 @@ import CommonDataManager from './CommonDataManager';
 let commonData = CommonDataManager.getInstance();
 import DeviceInfo from 'react-native-device-info';
 import MapView from "react-native-maps";
-
 import { withNavigation } from "react-navigation";
 
 

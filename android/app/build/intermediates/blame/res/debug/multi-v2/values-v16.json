@@ -4,7 +4,7 @@
             "outputFile": "/Users/apple/Documents/GitHub/PrimeOrder/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/Users/apple/.gradle/caches/transforms-2/files-2.1/66ee7355ce893e6e3ae06368b85492e8/res/values-v16/values-v16.xml",
+                    "source": "/Users/apple/.gradle/caches/transforms-2/files-2.1/ae2ddb3c1f2636c66d2b2e46366d5e5d/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/apple/.gradle/caches/transforms-2/files-2.1/02505546fdbda8b34299fe0b385ede12/res/values-v16/values-v16.xml",
+                    "source": "/Users/apple/.gradle/caches/transforms-2/files-2.1/801a9cc335316315be3413a34bdcc054/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

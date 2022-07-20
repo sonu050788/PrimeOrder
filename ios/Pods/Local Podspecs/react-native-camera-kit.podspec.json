@@ -1,6 +1,6 @@
 {
   "name": "react-native-camera-kit",
-  "version": "8.0.4",
+  "version": "8.0.1",
   "summary": "Advanced native camera control with pre-defined aspect ratio, crop, etc",
   "description": "Advanced native camera control with pre-defined aspect ratio, crop, etc",
   "license": "MIT",
@@ -8,7 +8,7 @@
   "homepage": "https://github.com/wix/react-native-camera-kit",
   "source": {
     "git": "https://github.com/wix/react-native-camera-kit",
-    "tag": "8.0.4"
+    "tag": "8.0.1"
   },
   "requires_arc": true,
   "platforms": {

@@ -1,4 +1,0 @@
-# Referenced at /Users/apple/Documents/GitHub/PrimeOrder/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:59
--keep class androidx.core.app.CoreComponentFactory { <init>(); }
-# Referenced at /Users/apple/Documents/GitHub/PrimeOrder/android/app/build/intermediates/merged_manifests/release/AndroidManifest.xml:59
--keep class com.primeorder.MainApplication { <init>(); }

@@ -103,7 +103,7 @@ this.state.itemImage=require('./images/itemImage/IRG-14.jpg');
             <View style={{backgroundColor:'#FFFFFF'}}>
             <View style={{flexDirection:'row',backgroundColor:'#FFFFFF'}}>
             <TouchableOpacity style={{borderRadius:20, height:60,width:60, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
-                 <Image source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"center", alignSelf:'center'}} />
+                 <Image source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />
           </TouchableOpacity> 
            {/* <TouchableOpacity  style={{borderRadius:20, height:40,width:50, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.navigate(this.state.Sourcefile,
                        {storeID:this.state.itemid,id:'0',qty:this.state.qty})}>           

@@ -1,11 +1,11 @@
 // @flow
 
-import variable from './../variables/platform';
+import variable from "./../variables/platform";
 
-export default (variables /* : * */ = variable) => {
+export default (variables /*: * */ = variable) => {
   const iconTheme = {
     fontSize: variables.iconFontSize,
-    color: variables.textColor
+    color: "#000"
   };
 
   return iconTheme;

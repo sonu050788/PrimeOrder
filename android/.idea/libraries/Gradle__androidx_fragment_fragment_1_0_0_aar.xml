@@ -3,6 +3,7 @@
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a64b074586cec33bd7c33c7cafd8c25d/annotations.zip!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0e93f55d1df5494739cbecaf3aa54156/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a5a8ac8b731b6be38dc51d12d4d26971/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a64b074586cec33bd7c33c7cafd8c25d/jars/classes.jar!/" />
@@ -10,6 +11,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0e93f55d1df5494739cbecaf3aa54156/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0e93f55d1df5494739cbecaf3aa54156/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0e93f55d1df5494739cbecaf3aa54156/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a5a8ac8b731b6be38dc51d12d4d26971/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a5a8ac8b731b6be38dc51d12d4d26971/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a5a8ac8b731b6be38dc51d12d4d26971/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

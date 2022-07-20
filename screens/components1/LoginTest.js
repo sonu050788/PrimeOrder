@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
   logo: {
     width: width-20,
     height:600,
+    resizeMode:'contain',
     // borderRadius:150,
   
     alignItems: 'center',

@@ -699,7 +699,7 @@ readSku(){
       <View style={{width:(width)/2-30,backgroundColor:'#ffffff'}}>
 <Image transition={false} source={require('../components1/images/OrDo.png')} style={{ height:50,width:100,resizeMode:"cover" }} ></Image>
 </View>
-<View style={{width:(width)/2-30,flexDirection:'row-reverse',backgroundColor:'#ffffff',height:60}}>
+<View style={{width:(width)/2-30,flexDirection:'row-reverse',backgroundColor:'#ffffff',height:60,marginTop:0}}>
 <TouchableOpacity style={{padding:10,height:40,backgroundColor:'#ffffff'}} onPress={() =>
               Alert.alert(
                     //title
@@ -714,7 +714,7 @@ readSku(){
                     //clicking out side of alert will not cancel
                   )}
 >
-    <Icon name="md-log-out" color='#1B1BD0' size={25}/>  
+    <Icon name="md-log-out" color='#1B1BD0' size={22}/>  
     {/* <FontAwesomeIcon icon="log-out" color='#1B1BD0' size={25} /> */}
                </TouchableOpacity>
            
@@ -729,7 +729,7 @@ readSku(){
                                
            
         </View> 
-         <View style={{marginTop:0,borderRadius:10,flexDirection:'row',height:40,backgroundColor:'#ffffff',width:width-80,alignSelf:'center'
+         <View style={{marginTop:10,borderRadius:10,flexDirection:'row',height:40,backgroundColor:'#ffffff',width:width-80,alignSelf:'center'
   
   }}>
     
@@ -773,7 +773,7 @@ readSku(){
             </View>
             <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFF',alignSelf:'center' ,marginTop:0}}>
                <View style={styles.recoredbuttonStyle}>
-               <Text style={{backgroundColor:"#c94c4c",color:'white',width:20,height:20,borderRadius:10,textAlign:'center',marginHorizontal:(screenwidth-25),marginTop:-32,fontSize:8,fontFamily:'Lato-Regular',textAlignVertical:'center'}}>{Number(commonData.getpendingcount())<100?commonData.getpendingcount():"100+"}</Text>
+               <Text style={{backgroundColor:"#c94c4c",color:'white',width:20,height:20,borderRadius:10,textAlign:'center',marginHorizontal:(screenwidth-25),marginTop:-32,fontSize:8,fontFamily:'Lato-Regular',textAlignVertical:'center',justifyContent:'center'}}>{Number(commonData.getpendingcount())<100?commonData.getpendingcount():"100+"}</Text>
 
                <TouchableOpacity   onPress={() => { this.props.navigation.navigate('unsentscreen') }}>
                   <Image transition={false} source={require('../components1/images/Pending1.png')} style={{ width: 30, height: 30 ,resizeMode:'stretch',alignSelf:'center',marginTop:-1}}   >
@@ -783,7 +783,7 @@ readSku(){
                 
               </View>
               <View style={styles.recoredbuttonStyle}>
-              <Text style={{backgroundColor:"#c94c4c",color:'white',width:20,height:20,borderRadius:10,textAlign:'center',marginHorizontal:(screenwidth-25),marginTop:-32,fontSize:8,fontFamily:'Lato-Regular',textAlignVertical:'center'}}>{Number(commonData.getorderscount())<100?commonData.getorderscount():"100+"}</Text>
+              <Text style={{backgroundColor:"#c94c4c",color:'white',width:20,height:20,borderRadius:10,textAlign:'center',marginHorizontal:(screenwidth-25),marginTop:-32,fontSize:8,fontFamily:'Lato-Regular',textAlign:'center',textAlignVertical:'center'}}>{Number(commonData.getorderscount())<100?commonData.getorderscount():"100+"}</Text>
 
               <TouchableOpacity   onPress={() => { this.props.navigation.navigate('Orderlist') }}>
                   <Image transition={false} source={require('../components1/images/completed1.png')} style={{ width: 30, height: 30 ,resizeMode:'stretch',alignSelf:'center',marginTop:-1}}   >

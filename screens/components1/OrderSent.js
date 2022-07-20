@@ -55,21 +55,21 @@ const {width}=Dimensions.get("screen")
      </TouchableOpacity>} */}
      <Animatable.View style={styles.footer} animation="fadeInUpBig">
        <View style={{flex:3}}>
-         <View style={{flex:1}}>
+         <View style={{flex:0.7}}>
         <Text style={styles.title}>Thank You</Text>
         <Image source={require('../components1/images/order_logo.jpeg')} style={{flex:0.5,height:200,width:200,alignSelf:'center',marginHorizontal:10,marginTop:20}}>
-            </Image>
+          </Image>
         <Text style={styles.text}>Your Order is Placed Successfully</Text>
         <Text style={styles.text}>Please check your email for Invoice</Text>
        
             </View>
-            <View>
+            {/* <View>
               <Text style={styles.text}></Text>
-            </View>
+            </View> */}
         {/* <View style={{flexDirection:'row',backgroundColor:'#FFFFFF',marginTop:10}}></View> */}
         {/* {TYPE==""?  */}
          <Text style={{color:'#000000',fontFamily:'Lato-Bold',fontSize:16,alignSelf:'center',width:width-60,alignContent:'center'}}>Do You wish to place a new Order?</Text>
-        <View style={{flexDirection:'row',backgroundColor:'green',flex:1,marginTop:10,width:width-60,height:100,alignSelf:'center',alignItems:'center',justifyContent:'center'}}>
+        <View style={{flexDirection:'row',backgroundColor:'white',marginTop:10,width:width-60,height:100,alignSelf:'center',alignItems:'center',justifyContent:'center'}}>
         
       
         <TouchableOpacity style={{alignSelf:'center',width:90,height:40,backgroundColor:'#ffffff',  shadowColor: '#000',
