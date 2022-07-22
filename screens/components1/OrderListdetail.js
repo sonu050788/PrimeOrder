@@ -161,7 +161,7 @@ this.setState({ JSONResult: newData });
         }
         return (
        
-        <View style={{backgroundColor:'#FFFFFF',flex:1}}>
+        <SafeAreaView style={{backgroundColor:'#FFFFFF',flex:1}}>
             <View style={{marginTop:30}}>
             <TouchableOpacity style={{borderRadius:20, height:60,width:60, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
                  <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />
@@ -231,7 +231,7 @@ elevation: 4 }}onPress={() => this.searchFilterFunction('')}>
               />
             </View> 
           </ScrollView>
-            </View>
+            </SafeAreaView>
           
         );
     }

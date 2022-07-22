@@ -31,27 +31,6 @@ const {width}=Dimensions.get("screen")
     }
     return (
       <View style={{ justifyContent: "center", alignItems: "center" ,backgroundColor:'#FFFFFF',height:900}}>
-        {/* <View style={{flexDirection:'column',backgroundColor:'#FFFFFF',marginTop:20}}>
-        <Image source={require('../components1/images/right.png')} style={{height:131,width:131,alignSelf:'center',marginTop:30}}>
-        </Image>
-        <Text style={{fontFamily:'Lato-Bold',marginTop:15}}>{Title}</Text>
-        <Text style={{fontFamily:'Lato-Regular',marginTop:150}}>{subtitle}</Text>
-        </View>
-        {TYPE==""? 
-        <View style={{flexDirection:'row',backgroundColor:'#FFFFFF',marginTop:10}}>
-        
-        <TouchableOpacity onPress={() => { this.props.navigation.navigate('HomeTab') }}>
-            <ImageBackground source={require('../components1/images/dashboardImage.png')} style={{height:100,width:130,alignSelf:'center',marginHorizontal:10}}>
-            </ImageBackground>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => { this.props.navigation.navigate('customer')}}>
-            <ImageBackground source={require('../components1/images/CreateOrder.png')} style={{height:100,width:130,alignSelf:'center',justifyContent:'space-between'}}>
-            </ImageBackground>
-        </TouchableOpacity></View>:
-         <TouchableOpacity onPress={() => { this.props.navigation.navigate('HomeTab') }}>
-         <ImageBackground source={require('../components1/images/dashboardImage.png')} style={{height:100,width:180,alignSelf:'center',marginHorizontal:10}}>
-        //  </ImageBackground>
-     </TouchableOpacity>} */}
      <Animatable.View style={styles.footer} animation="fadeInUpBig">
        <View style={{flex:3}}>
          <View style={{flex:1}}>

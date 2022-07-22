@@ -240,7 +240,7 @@ that.setState({JSONResult:temparray});
         shadowOpacity: 0.5, marginHorizontal:5,
         shadowRadius: 2,borderRadius:10,
         elevation: 4 }} onPress={()=>{Toast.show('Coupon Code Applied.', Toast.LONG);commonData.setCouponDetails(item.Code)}}>
-        <Text style={{alignSelf:'center',fontSize:12,fontWeight:'700',fontFamily:"Lato-Bold",width:120,height:30,textAlignVertical:'center',textAlign:'center',color:'#1B1BD0',fontFamily:'Lato-Regular',marginTop:10}}>{item.Code}</Text></TouchableOpacity>
+        <Text style={{alignSelf:'center',fontSize:12,fontWeight:'700',fontFamily:"Lato-Bold",width:120,height:30,textAlignVertical:'center',textAlign:'center',color:'#1B1BD0',fontFamily:'Lato-Regular'}}>{item.Code}</Text></TouchableOpacity>
          <Text style={{fontFamily:'Lato-bold',fontSize:8,textAlignVertical:'center',height:20,marginTop:10}}>Press and hold to apply coupon code.</Text>
          </View>
         );

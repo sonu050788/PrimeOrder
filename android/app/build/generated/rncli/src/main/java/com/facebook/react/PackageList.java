@@ -21,10 +21,10 @@ import com.reactnativecommunity.checkbox.ReactCheckBoxPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 // @react-native-community/toolbar-android
 import com.reactnativecommunity.toolbarandroid.ReactToolbarPackage;
-// react-native-camera-kit
-import com.wix.RNCameraKit.RNCameraKitPackage;
 // react-native-device-info
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+// react-native-camera-kit
+import com.wix.RNCameraKit.RNCameraKitPackage;
 // react-native-fs
 import com.rnfs.RNFSPackage;
 // react-native-geolocation-service
@@ -86,8 +86,8 @@ public class PackageList {
       new ReactCheckBoxPackage(),
       new NetInfoPackage(),
       new ReactToolbarPackage(),
-      new RNCameraKitPackage(),
       new RNDeviceInfo(),
+      new RNCameraKitPackage(),
       new RNFSPackage(),
       new RNFusedLocationPackage(),
       new RNGestureHandlerPackage(),

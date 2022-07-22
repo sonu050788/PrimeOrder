@@ -656,9 +656,11 @@ const styles=StyleSheet.create({
     
     },
     textSign: {
-        color: '#1B1BD0',
-        fontWeight: 'bold',
-        fontFamily:'Lato-Bold'
+      color: '#1B1BD0',
+      fontWeight: 'bold',
+      fontFamily:'Lato-Bold',
+      alignSelf:'center',
+      marginTop:10
       },
       signInplus: {
         width: 40,

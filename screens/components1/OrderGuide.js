@@ -250,7 +250,7 @@ this.setState({ JSONResult: newData });
         );
       }
       return (
-        <View style={{backgroundColor:'#FFFFFF',flex:1}}>
+        <SafeAreaView style={{backgroundColor:'#FFFFFF',flex:1}}>
         
         <View style={{flexDirection:'row',marginTop:30}}>
           <TouchableOpacity style={{borderRadius:20, height:60,width:width/3-10, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
@@ -312,7 +312,7 @@ elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
                       </View>
                   </ScrollView>
                   </View>
-        </View>
+        </SafeAreaView>
     );
     
   }
@@ -361,14 +361,15 @@ elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
                     // alignSelf:"center",
                     marginTop: 10,
                     textAlign:'center'}}></TextInput>
-                   <TouchableOpacity style={{height: 40, width: 100,marginTop:10,alignItems:'center'}} onPress={() => this.searchFilterFunction('')}>
-                     {/* <Image transition={false} source={require('../components1/images/cleartxt.png')} style={{marginTop:-13, height: '200%', width:'100%' }} /> */}
-                     <LinearGradient
-              colors={['#1B1BD0', '#1B1BD0']}
-              style={styles.signIn}>
+                 
+                    <TouchableOpacity style={{alignSelf:'center',width:90,height:40,backgroundColor:'#ffffff',  shadowColor: '#000',
+shadowOffset: { width: 0, height: 2 },
+shadowOpacity: 0.5, marginHorizontal:5,
+shadowRadius: 2,borderRadius:10,
+elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
+                   
               <Text style={styles.textSign}>Clear</Text>
-              {/* <MaterialIcons name="navigate-next" color="#fff" size={20} /> */}
-            </LinearGradient>
+             
                     </TouchableOpacity>  
                     
         </View>

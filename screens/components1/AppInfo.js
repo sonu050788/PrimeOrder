@@ -66,7 +66,9 @@ import Map from "./Map";
   elevation: 4 ,height:150, width: width-20, backgroundColor: 'white',alignSelf:'center',justifyContent:'center',borderRadius:2 }}>
            <Text  style={{fontFamily:'Lato-Regular',marginHorizontal:10,fontSize:20}}>{appName}</Text>
            <Text  style={{fontFamily:'Lato-Italic',marginHorizontal:10}}>An Order Management App</Text>
-           <Text style={{fontFamily:'Lato-Regular',marginHorizontal:10}}>Build Version :{buildNumber}</Text>
+           {/* <Text style={{fontFamily:'Lato-Regular',marginHorizontal:10}}>Build Version :{buildNumber}</Text> */}
+           <Text style={{fontFamily:'Lato-Regular',marginHorizontal:10}}>Build Version :{buildNumber}.22.3.1</Text>
+
            <Text style={{fontFamily:'Lato-Regular',marginHorizontal:10}}>Logged in as <Text style={{fontFamily:'Lato-Regular',fontWeight:'bold',marginHorizontal:10,color:'#1B1BD0'}}>{commonData.getusername()}</Text></Text>
            <Text style={{fontFamily:'Lato-Regular',fontWeight:'bold',marginHorizontal:10}}>Copyright © 2022 By Primesophic Technologies</Text>
             

@@ -150,7 +150,7 @@ class AddProduct extends Component {
       return response.json();
     }).then(function (result) {
       console.log("Added Item to Server")
-     Alert.alert("Message","Successfully Uploaded Items to the server");
+    //  Alert.alert("Message","Successfully Uploaded Items to the server");
      var ItemArray =[];
      commonData.setinventoryItemsArray(ItemArray);
  that.state.itemID=""
@@ -228,11 +228,11 @@ this.forceUpdate();
       console.log(json, "this is for orders list array")
       let tempArray = commonData.gettypeArray(json,'PO_06');
       commonData.setSkuArray(tempArray)
-     
+     that.props.navigate.goBack();
     }).catch(function (error) {
       console.log("-------- error ------- " + error);
     });
-    this.readorders();
+    
   }
   
   
@@ -338,7 +338,7 @@ this.forceUpdate();
                     //title
                     'Confirmation',
                     //body
-                    'Do you want to send an order?',
+                    'Do you want to Upload the items to the server?',
                     [
                       { text: 'Yes', onPress: () => this.saveItem() },
                       { text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel' },
@@ -504,69 +504,7 @@ searchForItem=()=>{
   
   }
   return;
-  for (var i = 0; i < skuList.length; i++) {
-    var itemIdEnteredUpCase=this.state.itemID.toUpperCase()
-    var itemEnteredLow=this.state.itemID.toLowerCase()
-    if ((itemIdEnteredUpCase)== skuList[i].itemid || (itemEnteredLow)== skuList[i].itemid ||Scannedvalue == skuList[i].upc) {
-      found = true;
-      indexvalue=i;
-      this.props.navigation.navigate('AddItemToList',{itemid:skuList[i].itemid,desc:skuList[i].description,onHand:skuList[i].stock,itemImage:"", qty:skuList[i].qty,from:'Inventory',price:skuList[i].base_price,upc:skuList[i].upc,weight:skuList[i].weight,itmdetails:skuList[i]});
-      return;
-      // if (Scannedvalue == skuList[i].upc)
-      //   this.state.itemID = skuList[i].itemid
-     
-    }
-    // if(found==true){
-    //   this.props.navigation.navigate('AddItemToList',{itemid:skuList[i].itemid,desc:skuList[i].description,onHand:skuList[i].stock,itemImage:"", qty:skuList[i].qty,from:'Inventory',price:skuList[i].base_price,upc:skuList[i].upc,weight:skuList[i].weight,itmdetails:skuList[i]});
   
-    // break;
-    // }
-  }
-
-
-
- 
-  if(found==true){
-    var description = skuList[indexvalue].description
-    var itemImage=skuList[indexvalue].imgsrc
-   var price = skuList[indexvalue].price
-   var weight=skuList[indexvalue].weight
-   var qty = skuList[indexvalue].qty
-   Scannedvalue=skuList[indexvalue].upc
-  
-  var ItemArray =[];
-  ItemArray=[...commonData.getinventoryItemsArray()];
-  let present= false;
-  var tempArray=[...ItemArray]
-  for(var j=0;j<tempArray.length;j++){
-    if(tempArray[j].itemid.toUpperCase()==this.state.itemID.toUpperCase()){
-      // present= true;
-      // break;
-      ItemArray.splice(j,1);
-    }
-  }
-  //Check if the Item is present in the added List
-  // if(present== false){
- 
-  ItemArray.push({itemid:this.state.itemID,description:description,
-  mfd:'123',category:'biscuits',
-  qty:qty,
-sub_cat:'sweets',class:'',UPC:Scannedvalue,
-moq:'10',qty_onhand:'10',
-base_price:price,selling_price:price,
-cost1:'0',cost2:'0',
-uom:'0',size:'100',
-weight:weight,pack:'',
-exta1:'',exta2:'',exta3:'',
-exta4:'',exta5:''
-});
-commonData.setinventoryItemsArray(ItemArray);
-
-
-// }
-}
-found=false;
-this.forceUpdate();
 }
 
 sampleRenderItem = ({ item, index }) => (

@@ -145,37 +145,7 @@ return (
           </TouchableOpacity> 
             <Text style={{  color: '#1B1BD0',backgroundColor:'#FFFFFF', fontSize: 20, height: 50,marginHorizontal:10, marginTop: -50,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:20,alignSelf:'center',textAlign:"center"}}>Pending Orders/Returns</Text>
             </View>
-  {/* <View style={{flexDirection:'row',marginTop:20}}>
-  <TouchableOpacity style={{borderRadius:20, height:60,width:60, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
-                 <Image source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"center", alignSelf:'center'}} />
-          </TouchableOpacity> 
-        <Text style={{  color: '#1B1BD0',backgroundColor:' #FFFFFF', fontSize: 20, height: 50,marginHorizontal:70,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:22,alignSelf:'center',textAlign:"center",justifyContent:'center'}}>Pending Orders</Text>
-       
-         </View>  */}
-  {/* <View style={{flexDirection:'row',backgroundColor:'#FFFFFF',alignContent:'center',justifyContent:'center',width:'100%'}}> 
-            <TextInput  placeholder="Enter Order #" 
-            onChangeText={text => this.searchFilterFunction(text)}
-            // onChangeText={(value) => this.setState({ value })}
-            autoCorrect={false}
-            value={this.state.value}
-            style={{marginHorizontal:10, 
-                // width: 250,
-                width:width-150,
-                height:50,
-                color: '#534F64',
-                borderWidth: 2,
-                // alignSelf:"center",
-                // Set border Hex Color Code Here.
-                borderColor: '#CAD0D6',
-                fontFamily:'Lato-Regular',
-                // alignSelf:"center",
-                marginTop: 10,
-                textAlign:'center'}}></TextInput>
-               <TouchableOpacity style={{height: 60, width: 100}} onPress={() => this.searchFilterFunction('')}>
-                 <Image source={require('../components1/images/cleartxt.png')} style={{marginTop:-13, height: '200%', width:'100%' }} />
-                </TouchableOpacity>  
-                
-    </View> */}
+ 
       <View style={{flexDirection:'row',backgroundColor:'#FFFFFF',alignContent:'center',justifyContent:'center',width:'100%',marginTop:5,width:width-30,alignSelf:'center'}}> 
                 <TextInput  placeholder="Enter Order# or Name" 
                 onChangeText={text => this.searchFilterFunction(text)}
@@ -202,9 +172,7 @@ elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
               <Text style={styles.textSign}>Clear</Text>
              
                     </TouchableOpacity>  
-                   {/* <TouchableOpacity style={{height: 60, width: 100}} onPress={() => this.searchFilterFunction('')}>
-                     <Image transition={false} source={require('../components1/images/cleartxt.png')} style={{marginTop:-13, height: '200%', width:'100%' }} />
-                    </TouchableOpacity>   */}
+                 
         </View>
     <View style={{backgroundColor:'#FFFFFF',height:50,marginLeft:20, flexDirection:"column"}}>
            {/* <Text style={{color:'#34495A',fontFamily:'Lato-Regular',marginTop:5,marginHorizontal:20}}>Select Your Product to Order</Text> */}

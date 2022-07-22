@@ -181,13 +181,18 @@ getListViewItem = (item) => {
     const scrollEnabled = true;
     return (
       <SafeAreaView style={{ backgroundColor: '#FFFFFF',flex:1}}>
-       <View style={{flexDirection:'row',marginTop:30,width:width}}>
-        <TouchableOpacity style={{borderRadius:20, height:60,width:60, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
-                 <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />
+     
+ <View style={{flexDirection:'row',backgroundColor:'#FFFFFF',marginTop:20}}>
+            <TouchableOpacity style={{borderRadius:20, height:60,width:60, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
+                 <Image source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />
           </TouchableOpacity> 
-            <Text style={{  color: '#1B1BD0',backgroundColor:' #FFFFFF',fontSize: 20,width:width,marginHorizontal:-60, height: 50,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:22,alignSelf:'center',textAlign:"center",justifyContent:'center'}}>Add Item Details</Text>
-      </View> 
+          
+            <View style={{flexDirection:'row',backgroundColor:'#FFFFFF'}}>
+            <Text style={{  color: '#1B1BD0',backgroundColor:' #FFFFFF', fontSize: 20, height: 50,marginHorizontal:40,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:22,alignSelf:'center',textAlign:"center",justifyContent:'center',marginTop:10}}>Add Item Details</Text>
 
+        </View>
+            </View>
+             
       <ScrollView 
     contentContainerStyle={{
         flexDirection: 'row',

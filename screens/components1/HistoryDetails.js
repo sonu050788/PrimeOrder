@@ -273,15 +273,14 @@ elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
             </View>
             <Text style={{color:'grey',borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold',marginTop:20,marginHorizontal:99}}>₹{item.price}</Text>
             <View style={{ width: 120, height: 40, flexDirection: 'row',marginTop:88,marginHorizontal:-225, borderRadius: 5, borderColor: 'grey', backgroundColor: '#ffffff' }}>
-                    <TouchableOpacity onPress={()=>{this.AddItem(item.qty,index,'-')}} style={{ width: 30, height: 40 }}>
-                        <Image source={require('./images/minus.png')} style={{ width: 30, height: 30, marginTop: 12, marginHorizontal: 6 }}></Image>
+                    <TouchableOpacity  style={{ width: 30, height: 40 }}>
                     </TouchableOpacity>
                     <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
                     borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
                    fontSize: 12, width: 40, height: 30,marginTop:17,marginHorizontal:10}}>{item.qty}</Text>
-                    <TouchableOpacity onPress={()=>{this.AddItem(item.qty,index,'+')}} style={{ width: 30, height: 40 }} >
+                    {/* <TouchableOpacity onPress={()=>{this.AddItem(item.qty,index,'+')}} style={{ width: 30, height: 40 }} >
                         <Image source={require('./images/add.png')} style={{ width: 30, height: 30, marginTop: 12,marginHorizontal:-7}}></Image>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </View>
          </ImageBackground>

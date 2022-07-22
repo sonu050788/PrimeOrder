@@ -403,27 +403,20 @@ elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
                     // alignSelf:"center",
                     marginTop: 10,
                     textAlign:'center'}}></TextInput>
-                   <TouchableOpacity style={{height: 60, width: 90,marginTop:10}} onPress={() => this.searchFilterFunction('')}>
-                     {/* <Image source={require('./images/cleartxt.png')} style={{marginTop:-15, height: '200%', width:'100%' }} /> */}
-                     <LinearGradient
-              colors={['#ffffff', '#ffffff']}
-              style={styles.signIn}>
+                  <TouchableOpacity style={{alignSelf:'center',width:90,height:40,backgroundColor:'#ffffff',  shadowColor: '#000',
+shadowOffset: { width: 0, height: 2 },
+shadowOpacity: 0.5, marginHorizontal:5,
+shadowRadius: 2,borderRadius:10,
+elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
+                   
               <Text style={styles.textSign}>Clear</Text>
-              {/* <MaterialIcons name="navigate-next" color="#fff" size={20} /> */}
-            </LinearGradient>
-
+             
                     </TouchableOpacity>  
                     </View>}
                 <View style={{backgroundColor:'#ffffff',height:40,width:width-20,alignSelf:'center', flexDirection:"column"}}>
-               {/* <Text style={{color:'#34495A',fontFamily:'Lato-Regular',marginTop:5,marginHorizontal:20}}></Text> */}
                <Text  style={{color:'#34495A',fontFamily:'Lato-Regular',marginTop:5,marginHorizontal:20}}>{this.state.searchmsg} </Text>
                 </View>
-                {/* <View style={{flexDirection:"row",marginHorizontal:250,marginTop:0,backgroundColor:'#FFFFFF',width:120,height:20}}>
-                {/* <TouchableOpacity style={{height: 60, width: 160}} onPress={() => this.searchFilterFunction('')}>
-              <Image source={require('./images/filter.png')} style={{ height: '30%', width:'60%',resizeMode:'contain' }} />
-                <Text  style={{color:'#34495A',fontWeight:"bold",fontFamily:'Lato-Regular',marginTop:-20,marginHorizontal:60}}>Filter</Text>
-                </TouchableOpacity>   */}
-               {/* </View>  */} 
+               
                <View style={{flexGrow:1,marginTop:-10,height:900}}>
                 <ScrollView style={{ backgroundColor: '#FFFFFF',}} 
                 contentContainerStyle={styles.scrollview}
@@ -440,17 +433,7 @@ elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
                     </View>
                 </ScrollView>
                 </View>
-                {/* <View style={styles.MainContainer}> */}
- 
- {/* <TouchableOpacity activeOpacity={0.5} onPress={() => this.props.navigation.navigate('AddProduct')} style={styles.TouchableOpacityStyle} >
-
-   <Image source={require('./images/Floating_Button.png')} 
-   
-          style={styles.FloatingButtonStyle} />
-
- </TouchableOpacity> */}
-
-{/* </View> */}
+               
             </View>
         );
     }
@@ -512,11 +495,11 @@ elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
         <View style={{flexDirection:'row'}}>
         <View style={{flexDirection:"row",backgroundColor:'#ffffff',width:100}}>
         <TouchableOpacity style={{height: 80, width: 80,marginHorizontal:19,marginTop:27}} onPress={() => this.props.navigation.navigate('Itemdetails',
-                   {storeID:item.itemid,desc:item.description,onHand:item.extrainfo1,itemImage:require('./images/itemImage/IRG-14.jpg'), qty:item.qty,from:'SKU',price:item.price,upc:item.upc,weight:item.weight,items:item})}>
+                   {storeID:item.itemid,desc:item.description,onHand:item.stock,itemImage:require('./images/itemImage/IRG-14.jpg'), qty:item.qty,from:'SKU',price:item.price,upc:item.upc,weight:item.weight,items:item})}>
             <Image source={require('./images/itemImage/IRG-14.jpg')} style={{ height: 80, width: 80, marginTop: 10,marginHorizontal:10, resizeMode: 'contain' }} />
         </TouchableOpacity>
         <Text  style={{color:'#34495A',fontFamily:'Lato-Regular',marginTop:120,marginHorizontal:-80}}>{item.itemid}</Text>
-        <Image source={require('./images/line.png')} style={{ height: 100, width: 80, marginTop: 33,marginHorizontal:63, resizeMode: 'contain' }} />
+        {/* <Image source={require('./images/line.png')} style={{ height: 100, width: 80, marginTop: 33,marginHorizontal:63, resizeMode: 'contain' }} /> */}
         </View>
         <View style={{marginHorizontal:20,flexDirection:'column'}}>
           <Text style={{color:'#7A7F85',borderBottomColor:'#7A7F85',fontFamily:'Lato-Regular',marginTop:23}}>Net wt: {Number(item.weight)} {item.unitofmeasure}</Text>

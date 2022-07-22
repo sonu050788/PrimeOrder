@@ -14,6 +14,9 @@ const{height}=Dimensions.get("window");
 const {width}=Dimensions.get("screen")
 const Configuration=require('../components1/Configuration');
 import SignatureCapture from 'react-native-signature-capture';
+import Share, { Social } from 'react-native-share';
+import { captureScreen } from "react-native-view-shot";
+var RNFS = require('react-native-fs');
 import Toast from 'react-native-simple-toast';
 class OrderInvoice extends Component {
     
@@ -42,11 +45,53 @@ class OrderInvoice extends Component {
         subtotal:0,
         GST:0,
         savings:0,
-        grandtotal:0
+        grandtotal:0,
+        screenshotView:false
 
     }
      this.arrayholder = [];
     }
+    captureAndShareScreenshot = () => {
+      var that =this;
+     
+      captureScreen({
+        format: "png",
+        quality: 0.8
+      })
+      .then(
+        uri => {console.log("Image saved to", uri);
+        RNFS.readFile(uri, 'base64')
+    .then((contents) => {
+      that.setState({screenshotView:false});
+      that.sendData();
+      console.log(contents+"vdvgvg")
+      let urlString = 'data:image/png;base64,'+contents;
+      let options = {
+        title: 'Ordo Order Reciept',
+        message: 'Please find the Confirmation Reciept',
+        url: urlString,
+        type: 'image/png',
+        social:Share.Social.WHATSAPP
+      };
+      Share.open(options)
+    .then((res) => {
+    
+      console.log(res);
+    })
+    .catch((err) => {
+      err && console.log(err);
+    });
+    
+    })
+    .catch((err) => {
+      console.log(err.message, err.code);
+    });
+  },
+        error => console.error("Oops, snapshot failed", error)
+      );
+      return;
+      
+    };
     componentWillMount(){
         this.state.value=''
         this.state.searchmsg=''
@@ -79,13 +124,19 @@ class OrderInvoice extends Component {
         
     }
     Sendordersstatustoserver=()=> {
-
+      this.setState({screenshotView:true});
+      this.captureAndShareScreenshot();
+    }
+    sendData=()=>{
       var that = this;
-        that.state.loading=true;
+      
+            // that.setState({screenshotView:false});
+        
         if(that.state.dragged==false){
           Alert.alert("Warning","Please sign to continue.");
           return;
         }
+        that.state.loading=true;
        for(var i=0;i<that.state.JSONResult.length;i++){
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -221,14 +272,15 @@ this.setState({ JSONResult: newData });
         const _onSaveEvent = (result) => {
               //result.encoded - for the base64 encoded png
               //result.pathName - for the file path name
-              Alert.alert('Message',"Your Order Delivery is successfully");
+              // Alert.alert('Message',"Your Order Delivery is successfully");
+              
               console.log(result.encoded);
 
           };
         const resetSign = () => {
             analytics().logEvent('ClearSignitureBtnClicked', {
                 content_type: 'ClearSigniture',
-                content_id: JSON.stringify(commonData.token),
+                content_id: JSON. stringify(commonData.token),
                 items: [{ name: 'ClearSigniture' }]
             })
             sign.current.resetImage();
@@ -250,12 +302,14 @@ this.setState({ JSONResult: newData });
        
         <View style={{backgroundColor:'#FFFFFF',flex:1}}>
             <View style={styles.container}>
+     {this.state.screenshotView==false?
+
             <TouchableOpacity style={styles.backStyle} onPress={() => {
 							this.props.navigation.goBack()
 						}}>
     <Image transition={false}  source={require('../components1/images/close_btn.png')} style={{width: 30,height:30,alignSelf:'center' }} > 
           </Image> 
-    </TouchableOpacity>
+    </TouchableOpacity>:null}
         <View style={{ flexDirection: 'row',alignSelf:'center', marginTop:10 , width:width-20,backgroundColor:'#ffffff'}} >
         
         <Text style={styles.titleStyle}>
@@ -320,6 +374,8 @@ this.setState({ JSONResult: newData });
                         showTitleLabel={true}
                         viewMode={'portrait'}
                     />
+     {this.state.screenshotView==false?
+
                     	<TouchableOpacity
 						style={styles.buttonStylereset}
 						onPress={() => {
@@ -331,8 +387,9 @@ this.setState({ JSONResult: newData });
   textShadowOffset: {width: -1, height: 1},
   textShadowRadius: 10
   }}>Clear Signature</Text>
-					</TouchableOpacity>
+					</TouchableOpacity>:null}
                    <Text style={{width:width-40,alignself:'center', marginHorizontal: 30}}>Orders have been recieved and the payment process has been successfully completed.</Text>
+                   {this.state.screenshotView==false?
 			
 					<TouchableOpacity
 						style={styles.ProceedbuttonStyle}
@@ -341,7 +398,7 @@ this.setState({ JSONResult: newData });
             }
 						}>
 						<Text style={{color:'#1B1BD0',fontFamily:'Lato-Bold'}}>Confirm Delivery</Text>
-					</TouchableOpacity>
+					</TouchableOpacity>:null}
           </View>
 				</View>
                     <View  >

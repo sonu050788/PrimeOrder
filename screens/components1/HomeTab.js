@@ -860,16 +860,9 @@ readSku(){
 
                 </View>
               </View>
-              {/* <TouchableOpacity style={{marginHorizontal:10,marginTop:10,height:40,alignSelf:'center',alignItems:'center', width:300}} onPress={() => this.props.navigation.navigate('customer')}>
-          <LinearGradient
-            colors={['#ffffff', '#ffffff']}
-            style={styles.signIn}>
-            <Text style={styles.textSign}>View Items</Text>
-           
-          </LinearGradient>
-        </TouchableOpacity> */}
+       
          <Card style={{ height: 40, width: 300, backgroundColor: 'white',alignSelf:'center',justifyContent:'center',marginBottom:10}}>
-             <TouchableOpacity    onPress={() => this.props.navigation.navigate('customer')}>
+             <TouchableOpacity    onPress={() => this.props.navigation.navigate('OrderItem')}>
             
             <Text style  ={{fontFamily:"Lato-Bold",width:300,textAlign:'center',color: '#1B1BD0',
     fontFamily:"Lato-Bold",

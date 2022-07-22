@@ -48,8 +48,10 @@ class Itemdetails extends Component {
             return;
           }
         let qtyval = Number(Qty)
-        if(type=='+')
+        if(type=='+'){
+
         qtyval=qtyval+1; 
+        }
          else if(type =='-'){
           if(qtyval>0)
           qtyval=qtyval-1;
@@ -95,9 +97,13 @@ class Itemdetails extends Component {
       this.state.price=this.props.navigation.getParam('price','0')
       this.state.upc=this.props.navigation.getParam('upc','')
       this.state.weight=this.props.navigation.getParam('weight','')
-this.state.itemImage=require('./images/itemImage/IRG-14.jpg');
+      this.state.itemImage=require('./images/itemImage/IRG-14.jpg');
     }
     render() {
+      var message="Item out of Stock";
+      if(this.state.onHand<this.state.qty)
+        message="You cannot order  more than the onHand Qty"
+
         return (
             <SafeAreaView>
             <View style={{backgroundColor:'#FFFFFF'}}>
@@ -151,11 +157,11 @@ this.state.itemImage=require('./images/itemImage/IRG-14.jpg');
                          </View>
                       
                      <View style={{width:150,marginTop:20, height:700,alignSelf:'center',flexDirection:'row',borderRadius:5, borderColor: 'grey', backgroundColor: '#FFFFFF'}}>
-                     <TouchableOpacity style={{width:50, height:48}}onPress={()=>{(Number(this.state.onHand)>0)?this.AddItem(this.state.qty,'-'):Alert.alert("Warning","Item is out of Stock")}}>
+                     <TouchableOpacity style={{width:50, height:48}}onPress={()=>{(Number(this.state.onHand)>0 )?this.AddItem(this.state.qty,'-'):Alert.alert("Warning","Item is out of Stock")}}>
                      <Image source={require('./images/minus.png')} style={{width:30, height:30,marginTop:10,alignSelf:'center'} }></Image>
                     </TouchableOpacity>
                      <Text style={{textAlign:'center',textAlignVertical:'center',justifyContent:'center',backgroundColor:'white',borderWidth: 1, borderColor:  '#CAD0D6',color:'#000000', fontSize:17,marginTop:10, width:60, height:30,fontFamily:'Lato-Regular'}}>{this.state.qty}</Text>
-                     <TouchableOpacity style={{width:50,height:48}} onPress={()=>{(Number(this.state.onHand)>0)?this.AddItem(this.state.qty,'+'):Alert.alert("Warning","Item is out of Stock")}}>
+                     <TouchableOpacity style={{width:50,height:48}} onPress={()=>{(Number(this.state.onHand)>0 && Number(this.state.onHand)>this.state.qty)?this.AddItem(this.state.qty,'+'):Alert.alert("Warning",message)}}>
                      <Image source={require('./images/add.png')} style={{width:30, height:30,marginTop:10,alignSelf:'center'}}></Image>
                     </TouchableOpacity>
                     </View>

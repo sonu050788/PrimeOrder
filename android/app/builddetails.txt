@@ -1,0 +1,5 @@
+build version: 1.22.3.1
+build created on July 22 2022
+Added
+* Whatsapp feature to share the order reciept and the delivery reciept.
+

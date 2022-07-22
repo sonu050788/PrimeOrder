@@ -6,7 +6,7 @@ import { Text,Button,ImageBackground, View,Keyboard, StyleSheet,Dimensions,Image
   import {
     Dropdown }
     from 'react-native-material-dropdown';
-    import Share from 'react-native-share';
+    import Share, { Social } from 'react-native-share';
 
 import { SafeAreaView } from 'react-navigation';
 // import { TextInput } from 'react-native';
@@ -95,7 +95,8 @@ class OrderItem extends Component {
       offerValue:"",
       offertype:"",
       signinitemsarray:[],totalsavings:0,
-      dragged:false
+      dragged:false,
+      screenshotView:false
     }
     this.itemList = commonData.getSkuArray();
   }
@@ -117,8 +118,10 @@ changedValue=(text, index)=>{
    })
    else if(index==3)
    this.setState({
-   headeraddress:text,
+   headeraddress:text
    })
+   else if(index==4)
+   this.setState({itemID:text})
    
  }
  save=()=>{
@@ -171,15 +174,21 @@ getofferforId=(id)=>{
   let type=""
   let product_id="";
   let minQty=0;
+  let couponfound=false;
   for(let i=0;i<this.state.offerArray.length;i++){
  
    if(id==this.state.offerArray[i].Code){
+    couponfound=true;
       value=Number(this.state.offerArray[i].OfferVAl);
       type=this.state.offerArray[i].type;
       console.log("this.state.offerArray[i]",this.state.offerArray[i])
       product_id=this.getitemval(this.state.offerArray[i].product_id);
     }
 
+  }
+  if(couponfound==false){
+    Toast.show('Invalid Coupon Code', Toast.LONG)
+    return;
   }
    this.setState({offerValue:value,offertype:type});
  if(type=='Q'){
@@ -304,12 +313,12 @@ const shareOptions = {
    
     this.loadOffers();
     let skuarray=commonData.getSkuArray();
-  this.state.From= commonData.getContext()
+  this.state.From= commonData.getContext();
   let TYPE=this.props.navigation.getParam('TYPE','')
   if(this.state.From=='HISTORY'|| TYPE=='RETURN'){
 
     
-    const itmArray=commonData.getCurrentArray();
+    var itmArray=commonData.getCurrentArray();
 
     for(let k=0;k<itmArray.length;k++){
       for(let j=0;j<skuarray.length;j++){
@@ -341,7 +350,7 @@ const shareOptions = {
     this.calculaterunningTotals();
     this.forceUpdate()
   }else if(this.state.From=='OG' || this.state.From=='RP'||commonData.getContext()=='RP'){
-    const itmArray=commonData.getCurrentArray();
+    var itmArray=commonData.getCurrentArray();
    
    
     for(let k=0;k<itmArray.length;k++){
@@ -383,7 +392,7 @@ const shareOptions = {
     this.forceUpdate()
   }
   else if(this.state.From=='UN'){
-    const itmArray=commonData.getCurrentArray();
+    var itmArray=commonData.getCurrentArray();
     for(let k=0;k<itmArray.length;k++){
       for(let j=0;j<skuarray.length;j++){
         if(itmArray[k].itemid==skuarray[j].itemid){
@@ -428,6 +437,7 @@ const shareOptions = {
     }
     
     if (commonData.isOrderOpen == true) {     
+  
       this.state.orderid = commonData.getOrderId()
       if(this.state.From=='ID'){
         commonData.setContext('')
@@ -495,9 +505,17 @@ DeleteFunction =async ()=> {
     await RNFS.unlink(path1);
     console.log("file deleted", path1);
      }
-     that.props.navigation.navigate('OrderSent',{"TYPE":""})
+    //  that.props.navigation.navigate('OrderSent',{"TYPE":""})
 }
+itemPresent=()=>{
+  var itemtocheck=commonData.getSkuArray();
+  const filtered=itemtocheck.filter(item=>item.itemid.toUpperCase()==this.state.itemID.toUpperCase());
+  if(filtered.length>0)
+  return true
+  else
+  return false;
 
+}
   joinData = () => {
    
     Keyboard.dismiss()  
@@ -515,11 +533,7 @@ DeleteFunction =async ()=> {
         Alert.alert("Warning","Please add items from the return Order item list.")
         return;
       }
-    
-     
-      
     }
-   
     this.itemList = commonData.getSkuArray()
     var qty = 0, price = 0;
     var weight=0;
@@ -531,34 +545,28 @@ DeleteFunction =async ()=> {
       return;
     }
     //UPC Check
- 
-    if (this.state.itemID == null)
+    if (this.state.itemID == null || this.state.itemID==''||this.itemPresent()==false)
       return;
     // var i = 0;
     var found = false;
-  
     var index=-1;
     for(var i1=0;i1<this.itemList.length;i1++){
       var itemIdEnteredUpCase=this.state.itemID.toUpperCase();
       var itemEnteredLow=this.state.itemID.toLowerCase()
-      var entereditemid=this.state.itemID;
+      var entereditemid=this.itemList[i1].itemid;
       if(itemIdEnteredUpCase==entereditemid.toUpperCase()||itemEnteredLow==entereditemid.toLowerCase()){
         index=i1;
         found=true;
         hand=this.itemList[i1].stock
-       
-        
         this.state.description = this.itemList[i1].description
         this.state.itemImage=this.itemList[i1].imgsrc
         price = this.itemList[i1].price
          weight=this.itemList[i1].weight
-         
           if(Number(hand)>0){
           if (this.itemList[i1].qty != null || this.itemList[i1].qty >= 0) {
             this.state.qty = Number(this.itemList[i1].qty) + 1;
           }
           }
-         
         break;
       }
 
@@ -567,8 +575,6 @@ DeleteFunction =async ()=> {
     for (var i = 0; i < this.state.arrayHolder.length; i++) {
       if (this.state.arrayHolder[i].itemid == this.state.itemID) {
         qty = Number(this.state.arrayHolder[i].qty) + 1;
-     
-       
         if(qty>=hand){
           Alert.alert("Warning","Quantity cannot exceed the available on Hand count");
           qty=hand;
@@ -1135,7 +1141,7 @@ DeleteFunction =async ()=> {
       uri => {console.log("Image saved to", uri);
       RNFS.readFile(uri, 'base64')
   .then((contents) => {
-   
+    that.setState({SignitatureCapture:false,screenshotView:false});
     console.log(contents+"vdvgvg")
     let urlString = 'data:image/png;base64,'+contents;
     let options = {
@@ -1143,6 +1149,7 @@ DeleteFunction =async ()=> {
       message: 'Please find the Confirmation Reciept',
       url: urlString,
       type: 'image/png',
+      social:Share.Social.WHATSAPP
     };
     Share.open(options)
   .then((res) => {
@@ -1151,55 +1158,22 @@ DeleteFunction =async ()=> {
   .catch((err) => {
     err && console.log(err);
   });
-    // Share.share(options)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     err && console.log(err);
-    //   });
+  
   })
   .catch((err) => {
     console.log(err.message, err.code);
   });
-      // RNFS.readFile(uri, 'base64').then((res) => {
-       
-      //   let urlString = 'data:image/jpeg;base64,' + res;
-      //   console.log(urlString+"vdvgvg")
-        
-       
-      // });
-    },
+},
       error => console.error("Oops, snapshot failed", error)
     );
     return;
-    that.refs.viewShot.capture().then((uri) => {
-      console.log(uri+"vdvgvg")
-      RNFS.readFile(uri, 'base64').then((res) => {
-       
-        let urlString = 'data:image/jpeg;base64,' + res;
-        console.log(urlString+"vdvgvg")
-        
-        let options = {
-          title: 'Share Title',
-          message: 'Share Message',
-          url: urlString,
-          type: 'image/jpeg',
-        };
-        Share.open(options)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            err && console.log(err);
-          });
-      });
-    });
+    
   };
 
   render() {
    
     const scrollEnabled=this.state.screenheight>height;
+    const scrollEnabled1=this.state.screenheight>130;
     let screenwidth= Dimensions.get('window').width;
     let screenheight= Dimensions.get('window').height;
     var price=commonData.getTotalPrice().split("₹")[1];
@@ -1225,9 +1199,18 @@ DeleteFunction =async ()=> {
     }
 		sign.current.saveImage();
     // Alert.alert("Message","");
-    this.setState({SignitatureCapture:false});
+    this.setState({screenshotView:true});
+    // this.setState({SignitatureCapture:false});
     // this.onSharesPress();
+    this.sendOrderFunction();
     this.captureAndShareScreenshot();
+    this.setState({screenshotView:false});
+    this.props.navigation.navigate('OrderSent',{"TYPE":""})
+   
+//     console.log('before');
+// wait(5000);  //7 seconds in milliseconds
+// console.log('after');
+
     // this.sendOrderFunction();
 	};
 
@@ -1239,7 +1222,7 @@ DeleteFunction =async ()=> {
   const _onSaveEvent = (result) => {
 		//result.encoded - for the base64 encoded png
 		//result.pathName - for the file path name
-		alert('Signature Captured Successfully');
+		// alert('Signature Captured Successfully');
 		console.log(result.encoded);
 	};
   const resetSign = () => {
@@ -1255,18 +1238,20 @@ DeleteFunction =async ()=> {
 
 
     const sign = createRef();
+    
     if (this.state.SignitatureCapture == true) {
       this.state.signinitemsarray=[...this.state.arrayHolder];
       return (
        
-<View style={styles.container}>
-     
+<SafeAreaView style={styles.container}>
+     {this.state.screenshotView==false?
       <TouchableOpacity style={styles.backStyle} onPress={() => {
       closeSign();
       }}>
       <Image transition={false}  source={require('../components1/images/close_btn.png')} style={{width: 30,height:30,alignSelf:'center' }} > 
       </Image> 
-      </TouchableOpacity>
+      </TouchableOpacity>:null
+    }
       <View style={{ flexDirection: 'row',alignSelf:'center', marginTop:10 , width:width-20,backgroundColor:'#ffffff'}} >
 
           <Text style={styles.titleStyle}>
@@ -1289,23 +1274,24 @@ DeleteFunction =async ()=> {
       <Text style={{color:'#34495A',fontSize:11,borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold',width:width/4.5,marginHorizontal:2}}>Qty</Text>
       <Text style={{color:'#34495A',fontSize:11,borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold',width:width/3.5,marginHorizontal:2}}>Price</Text>
       </View>
-      <View style={{height:130}}>
-
-          <ScrollView style={{ backgroundColor: '#FFFFFF',flexGrow:1}} 
-          contentContainerStyle={styles.scrollview}
-          scrollEnabled={scrollEnabled}
-          onContentSizeChange={this.onContentSizeChange}>
-              <View style={{justifyContent:"space-between",padding:5,backgroundColor: '#FFFFFF',marginTop:0,height:height-290}}>
-                <FlatList
-                data={this.state.signinitemsarray}
-                renderItem={this.SignItemsView}
-                extraData={this.state.refresh}
-                keyExtractor={(item, index) => toString(index,item)}
-                ItemSeparatorComponent={this.renderSeparator} 
-                />
-              </View>
-          </ScrollView>
-      </View>
+      
+<View style={{height:130}}>
+                <ScrollView style={{ backgroundColor: '#FFFFFF',}} 
+                contentContainerStyle={styles.scrollview}
+                scrollEnabled={scrollEnabled1}
+                onContentSizeChange={this.onContentSizeChange}>
+                <View style={{justifyContent:"space-between",padding:10,backgroundColor: '#FFFFFF',height:height-290}}>
+                    <FlatList
+                        data={this.state.signinitemsarray}
+                        renderItem={this.SignItemsView}
+                        extraData={this.state.refresh}
+                        keyExtractor={(item, index) => toString(index,item)}
+                        ItemSeparatorComponent={this.renderSeparator} 
+                    />
+                    </View>
+                </ScrollView>
+                </View>
+      {this.state.screenshotView==false?
       <View style={{flexDirection:'row',height:30,width:width-10,alignSelf:'center',marginTop:30,alignItems:'center',paddingBottom:10}}>
           <View style={styles.parent}>
             <TextInput
@@ -1347,7 +1333,7 @@ DeleteFunction =async ()=> {
             </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={()=>this.getofferforId(this.state.couponcode)} style={{width:100,height:40,borderWidth:1,borderColor:'#1B1BD0',backgroundColor:'#FFFFFF',borderRadius:5,marginTop:-10}}><Text style={{textAlign:'center',textAlignVertical:'center',color:'#1B1BD0',height:40}}>APPLY</Text></TouchableOpacity>
-      </View>           
+      </View>  :null}         
       <View style={{height:400,backgroundColor:'#ffffff'}}>
       <View style={{height:30,flexDirection:'column',width:width-30,alignself:'center'}}>
       <Text style={{ width:width-30,fontFamily:'Lato-Regular',fontSize:11,textAlign:'right'}}>Sub-Total :{commonData.getTotalPrice()}</Text>
@@ -1372,6 +1358,7 @@ DeleteFunction =async ()=> {
       showTitleLabel={true}
       viewMode={'portrait'}
       />
+      {this.state.screenshotView==false?
       <TouchableOpacity
       style={styles.buttonStylereset}
       onPress={() => {
@@ -1383,19 +1370,20 @@ DeleteFunction =async ()=> {
       textShadowOffset: {width: -1, height: 1},
       textShadowRadius: 10
       }}>Clear Signature</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>:null}
+      {this.state.screenshotView==false?
       <TouchableHighlight
       style={styles.ProceedbuttonStyle}
       onPress={() => {
       saveSign1();
       }}>
       <Text style={{color:'#1B1BD0',fontFamily:'Lato-Bold'}}>Confirm Order</Text>
-      </TouchableHighlight>
+      </TouchableHighlight>:null}
       </View>
       </View>
       <View>
   </View>
-</View>
+</SafeAreaView>
                 
       );
     }
@@ -1717,13 +1705,7 @@ value={this.state.headernumber}
     backgroundColor:'white'}}>SAVE</Text>
               </TouchableOpacity>
              </Card>
-{/* <TouchableOpacity onPress={()=>this.save()} >
-                <LinearGradient
-              colors={['#ffffff', '#ffffff']}
-              style={styles.headersave}>
-              <Text style={styles.sendview}>SAVE</Text>
-            </LinearGradient>
-            </TouchableOpacity> */}
+
 </View>
 <View style={{width:(width-80)/2,height:60}}>
 <Card style={{ height: 40, width: 120, backgroundColor: 'white',alignSelf:'center',justifyContent:'center',borderRadius:8}}>
@@ -1736,13 +1718,7 @@ value={this.state.headernumber}
     backgroundColor:'white'}}>CANCEL</Text>
               </TouchableOpacity>
              </Card>
-{/* <TouchableOpacity onPress={()=>{this.cancel()}}>
-                <LinearGradient
-              colors={['#ffffff', '#ffffff']}
-              style={styles.headersave}>
-              <Text style={styles.deleteview}>CANCEL</Text>
-            </LinearGradient>
-            </TouchableOpacity> */}
+
 </View>
 </View>
 {commonData.isOrderOpen==false?
@@ -1803,10 +1779,7 @@ value={this.state.headernumber}
                     { cancelable: false }
                     //clicking out side of alert will not cancel
                   ) : Alert.alert('Please add items to the order')}>
-                     {/* <Image transition={false} source={require('./images/send.png')} style={{ width: 74, height: 40, marginTop: -14,resizeMode:"contain"}}></Image> */}
-                {/* <Text style={{ width: 100, height: 40, textAlign: 'center', textAlign: 'cener', marginTop: -5,color:'white' }}>SEND</Text> */}
-                {/* <LinearGradient
-              colors={['#ffffff', '#ffffff']} */}
+            
               <Card
               style={[styles.signIn,styles.shadowProp]}>
               <Text style={styles.sendview}>SEND</Text>
@@ -1872,10 +1845,9 @@ value={this.state.headernumber}
                 <TextInput 
                 label="Product ID"
                
-               type="outlined"
+                  type="outlined"
                   placeholderTextColor='#dddddd'
                   underlineColor='#dddddd'
-                 
                   activeUnderlineColor='#dddddd'
                   outlineColor="#dddddd"
                   selectionColor="#dddddd"
@@ -1903,9 +1875,9 @@ value={this.state.headernumber}
                     marginHorizontal:-20,
                     flex:0.49,
                     fontFamily:'Lato-Regular'}}
-                    onChangeText={(itemID) => this.setState({ itemID })}
-                    value={this.state.text}
-                    >{this.state.itemID}</TextInput>
+                    onChangeText={(itemID) => this.changedValue(itemID,4)}
+                    value={this.state.itemID}
+                    ></TextInput>
                      <TouchableOpacity onPress={this.joinData} style={{ marginTop: 0,flex:0.25 }}>
                 {/* <Image transition={false} source={require('../components1/images/additems.png')} style={{ height: 40, width: 100, marginHorizontal: 0, resizeMode: 'contain' }}></Image> */}
                 <Card 
@@ -2022,43 +1994,44 @@ sampleRenderItem = ({ item, index }) => (
       <Text style={{color:'grey',fontFamily:'Lato-Bold',fontSize:12,marginTop:0}}>{item.noofdays} days Older</Text>
       </View>
       <View style={{height: 20, width: 20,marginHorizontal:-10,flexDirection:'column',alignItems:'center'}}>
-    {/* <View style={{height: 20, width: 20, marginTop:27,marginHorizontal:-80}}> */}
-     {/* <TouchableOpacity style={{marginTop:30,marginHorizontal:90}} onPress={() => Alert.alert(
-        //title
-        'Confirmation',
-        //body
-        'Do you want to delete the selected Item?',
-        [
-          { text: 'Yes', onPress: () => this.deleteItms(item.itemid) },
-          { text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel' },
-        ],
-        { cancelable: false }
-        //clicking out side of alert will not cancel
-      )}>
-    <Image transition={false} source={require('./images/minus2.png')} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
-    </TouchableOpacity> */}
-    <Text style={{color:'#000000',borderBottomColor:'#000000',fontWeight:'100',textAlign:'center',fontFamily:'Lato-Bold',width:60,marginTop:20}}>₹{Number(item.price)}</Text>
+      {/* <View style={{height: 20, width: 20, marginTop:27,marginHorizontal:-80}}> */}
+       <TouchableOpacity style={{marginTop:30,marginHorizontal:90}} onPress={() => Alert.alert(
+          //title
+          'Confirmation',
+          //body
+          'Do you want to delete the selected Item?',
+          [
+            { text: 'Yes', onPress: () => this.deleteItms(item.itemid) },
+            { text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel' },
+          ],
+          { cancelable: false }
+          //clicking out side of alert will not cancel
+        )}>
+      <Image transition={false} source={require('./images/minus2.png')} style={{ height: 20, width: 20, resizeMode: 'contain' }} />
+      </TouchableOpacity>
+      <Text style={{color:'#000000',borderBottomColor:'#000000',fontWeight:'100',textAlign:'center',fontFamily:'Lato-Bold',width:60,marginTop:20}}>₹{Number(item.price)}</Text>
 
-    {/* </View> */}
-    </View>
-    <View style={{ width: 120, height: 40, flexDirection: 'row',marginTop:88,marginHorizontal:-110, borderRadius: 5, borderColor: 'grey', backgroundColor: '#ffffff' }}>
-            <TouchableOpacity onPress={()=>{(Number(item.stock)>0)?this.AddItem(Number(item.qty),index,'-'):Alert.alert("Warning","Item is out of Stock")}} style={{ width: 30, height: 40 }}>
-                {/* <Image source={require('./images/minus.png')} style={{ width: 30, height: 30, marginTop: 12, marginHorizontal: 6 }}></Image> */}
-                <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
-            borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
-           fontSize: 16,borderRadius:8, width: 40, height: 30,marginTop:11,marginHorizontal:10}}>-</Text>
-           
-            </TouchableOpacity>
-            <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
-            borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
-           fontSize: 12,borderRadius:8, width: 40, height: 30,marginTop:12,marginHorizontal:10}}>{Number(item.qty)}</Text>
-            <TouchableOpacity onPress={()=>{(Number(item.stock)>0)?this.AddItem(Number(item.qty),index,'+'):Alert.alert("Warning","Item is out of Stock")}} style={{ width: 30, height: 40 }} >
-                <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
-            borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
-           fontSize: 16,borderRadius:8, width: 40, height: 30,marginTop:11,marginHorizontal:10}}>+</Text>
-           
-            </TouchableOpacity>
-        </View>
+      {/* </View> */}
+      </View>
+      <View style={{ width: 120, height: 40, flexDirection: 'row',marginTop:88,marginHorizontal:-90, borderRadius: 5, backgroundColor: '#ffffff' }}>
+              <TouchableOpacity onPress={()=>{this.AddItem(Number(item.qty),item.itemid,'-')}} style={{ width: 30, height: 40 }}>
+                  {/* <Image source={require('./images/minus.png')} style={{ width: 30, height: 30, marginTop: 12, marginHorizontal: 6 }}></Image> */}
+                  <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
+              borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
+             fontSize: 16,borderRadius:8, width: 40, height: 30,marginTop:11,marginHorizontal:10}}>-</Text>
+             
+              </TouchableOpacity>
+              <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
+              borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
+             fontSize: 12,borderRadius:8, width: 40, height: 30,marginTop:12,marginHorizontal:10}}>{Number(item.qty)}</Text>
+              <TouchableOpacity onPress={()=>{this.AddItem(Number(item.qty),item.itemid,'+')}} style={{ width: 30, height: 40 }} >
+                  {/* <Image source={require('./images/add.png')} style={{ width: 30, height: 30, marginTop: 12,marginHorizontal:-7}}></Image> */}
+                  <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
+              borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
+             fontSize: 16,borderRadius:8, width: 40, height: 30,marginTop:11,marginHorizontal:10}}>+</Text>
+             
+              </TouchableOpacity>
+          </View>
     </View>
  </ImageBackground>
  </View>
@@ -2141,7 +2114,7 @@ const styles = StyleSheet.create({
     height: 500,
   },
   ScrollView: {
-    flexGrow: 1,
+    // flexGrow: 1,
   },
   scrollview:{
     // flexGrow:1,
@@ -2378,7 +2351,7 @@ elevation: 4 ,
 		margin: 10,
 	},
   buttonStylereset: {
-    width:"85%",
+    width:"45%",
 		justifyContent: 'center',
 		alignItems: 'center',
 		height: 30,
