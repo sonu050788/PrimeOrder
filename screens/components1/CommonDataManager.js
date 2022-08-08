@@ -57,6 +57,7 @@ uid="";
     _codeDetails="";
     token="";
     email="";
+    currentfile="";
     /**
      * @returns {CommonDataManager}
      */
@@ -183,6 +184,12 @@ uid="";
    getItemArray(){
 
      return this.SharedItemArray;
+   }
+   getcurrentfile(){
+     return this.currentfile;
+   }
+   setcurrentfile(name){
+     this.currentfile=name;
    }
    setstoresArray(array) {
     this._StoreArray = array;
@@ -441,21 +448,35 @@ gettypeArray(jsonData,code) {
     for(var i=0; i< object.length;i++)
   {
    
-    tempArray.push({ 'addressline1': object[i].link_value.addressline1.value,
-    'addressline2': object[i].link_value.addressline2.value,
-    'country': object[i].link_value.country.value,
-    'state': object[i].link_value.addressline2.value,
-    'name': object[i].link_value.name.value,
-    'postalcode': object[i].link_value.postalcode.value,
-    'creditlimit':object[i].link_value.creditlimit.value,
-    'lastpaymentdate':object[i].link_value.lastpaymentdate.value,
-    'lastsaleamount':object[i].link_value.lastsaleamount.value,
-    'lastsaledate':object[i].link_value.lastsaledate.value,
-    'due_amount_c':object[i].link_value.due_amount_c.value,
-    'ispaymentdue':object[i].link_value.payment_due_c.value,
-     'storeid': object[i].link_value.customerid.value})
-  }
+  //   tempArray.push({ 'addressline1': object[i].link_value.addressline1.value,
+  //   'addressline2': object[i].link_value.addressline2.value,
+  //   'country': object[i].link_value.country.value,
+  //   'state': object[i].link_value.addressline2.value,
+  //   'name': object[i].link_value.name.value,
+  //   'postalcode': object[i].link_value.postalcode.value,
+  //   'creditlimit':object[i].link_value.creditlimit.value,
+  //   'lastpaymentdate':object[i].link_value.lastpaymentdate.value,
+  //   'lastsaleamount':object[i].link_value.lastsaleamount.value,
+  //   'lastsaledate':object[i].link_value.lastsaledate.value,
+  //   'due_amount_c':object[i].link_value.due_amount_c.value,
+  //   'ispaymentdue':object[i].link_value.payment_due_c.value,
+  //    'storeid': object[i].link_value.customerid.value})
+  // }
   
+  tempArray.push({ 'addressline1': object[i].addressline1,
+    'addressline2': object[i].addressline2,
+    'country': object[i].country,
+    'state': object[i].addressline2,
+    'name': object[i].name,
+    'postalcode': object[i].postalcode,
+    'creditlimit':object[i].creditlimit,
+    'lastpaymentdate':object[i].lastpaymentdate,
+    'lastsaleamount':object[i].lastsaleamount,
+    'lastsaledate':object[i].lastsaledate,
+    'due_amount_c':object[i].due_amount_c,
+    'ispaymentdue':object[i].payment_due_c,
+     'storeid': object[i].customerid})
+  }
   }
  else if(code=='PO_04')
   {
@@ -531,10 +552,16 @@ gettypeArray(jsonData,code) {
           'category':object[i].name_value_list.category.value,
           'subcategory':object[i].name_value_list.subcategory.value,
           'unitofmeasure':object[i].name_value_list.unitofmeasure.value,
+          'manufacturer':object[i].name_value_list.manufacturer.value,
+          'class':object[i].name_value_list.class.value,
           'pack':object[i].name_value_list.pack.value,
           'size':object[i].name_value_list.size.value,
           'weight':object[i].name_value_list.weight.value,
           'extrainfo1':object[i].name_value_list.extrainfo1.value,
+          'extrainfo2':object[i].name_value_list.extrainfo2.value,
+          'extrainfo3':object[i].name_value_list.extrainfo3.value,
+          'extrainfo4':object[i].name_value_list.extrainfo4.value,
+          'extrainfo5':object[i].name_value_list.extrainfo5.value,
           'imgsrc':images[itemid],
           'manufactured_date':object[i].name_value_list.manufactured_date.value,
           "stock":object[i].name_value_list.stock_c.value,

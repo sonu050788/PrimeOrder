@@ -76,8 +76,10 @@ export default createAppContainer(createStackNavigator({
 }, {
     //initial Screen setup
         initialRouteName:'SplashScreen',
+        
         defaultNavigationOptions: {
             //Hide the header
-            header: null 
+            header: null,
+            gesturesEnabled:false
         }
     }))

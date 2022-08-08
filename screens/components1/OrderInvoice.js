@@ -243,6 +243,8 @@ this.setState({ JSONResult: newData });
     }
     render() {
         const scrollEnabled = this.state.screenHeight > height;
+        const scrollEnabled1=this.state.screenheight>60;
+
         this.state.searchmsg=this.state.JSONResult.length+' Results'
         var price=commonData.getTotalPrice().split("₹")[1];
         var totalsavings=0;
@@ -332,11 +334,12 @@ this.setState({ JSONResult: newData });
       <Text style={{color:'#34495A',fontSize:11,borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold',width:width/4.5,marginHorizontal:2}}>Qty</Text>
       <Text style={{color:'#34495A',fontSize:11,borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold',width:width/3.5,marginHorizontal:2}}>Price</Text>
 </View>
+
 <View style={{height:190}}>
               
               <ScrollView style={{ backgroundColor: '#FFFFFF',flexGrow:1}} 
                 contentContainerStyle={styles.scrollview}
-                scrollEnabled={scrollEnabled}
+                scrollEnabled={scrollEnabled1}
                 onContentSizeChange={this.onContentSizeChange}>
                 <View style={{flexGrow:1,justifyContent:"space-between",padding:5,backgroundColor: '#FFFFFF',marginTop:0,height:height-230}}>
                     <FlatList

@@ -55,6 +55,7 @@ class DeliveryMain extends Component{
           "__module_code__": "PO_14",
           "__query__": "",
           "__delete__": 0,
+          "__orderby__": "date_entered DESC"
         })
       }).then(function (response) {
         return response.json();
@@ -235,10 +236,12 @@ that.props.navigation.navigate('ItemInvoice',{orderid:oid,code:'OD'})
     this.props.navigation.navigate("LoginScreen")  
   }
     render(){
+     
       var message=this.data.length+" records"
       if(this.data.length==0)
       message="No pending Orders"
       const scrollEnabled = this.state.screenHeight > height;
+      const scrollEnabled1 = this.state.screenHeight > 300;
        return( <SafeAreaView style={{flex:1,backgroundColor:"white"}}>
        
                 <View style={{width:width,flexDirection:'row',height:70,backgroundColor:'white',borderBottomColor:'grey',shadowColor:'000',shadowRadius:1,alignSelf:'center'}}>

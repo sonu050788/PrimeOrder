@@ -35,12 +35,24 @@ class Orderlist extends Component {
     this.arrayholder = [];
     }
    async componentDidMount() {
-       let orderarray=commonData.getordderssArray();
-        this.arrayholder=orderarray;
-        console.log(orderarray,'+++++++++++++++')
-        this.state.searchmsg=''
-        
+      //  let orderarray=commonData.getordderssArray();
+      //   this.arrayholder=orderarray;
+      //   console.log(orderarray,'+++++++++++++++')
+      //   this.state.searchmsg=''
+      const { navigation } = this.props;
+    this.focusListener = navigation.addListener("didFocus", () => {
+      let orderarray=commonData.getordderssArray();
+      this.arrayholder=orderarray;
+      console.log(orderarray,'+++++++++++++++')
+      this.state.searchmsg=''
+    });
+    this.focusListener = navigation.addListener("willBlur", () => {
+        this.resignView()
+    });
     }
+  resignView() {
+
+  }
 componentWillMount(){
   this.synccall();
 }
@@ -90,6 +102,7 @@ gotoOrderItemScreen(item){
     body: JSON.stringify({
       "__module_code__": "PO_14",
       "__query__": "username='"+variable+"'",
+      "__orderby__": "date_entered DESC",
       "__delete__": 0,
     })
   }).then(function (response) {

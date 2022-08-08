@@ -23,8 +23,7 @@ const SET_DATAURL= Constants.SET_URL;
       arrayHolder:[  
         {key: 'ProductID',placeholder:"Enter the ProductID",value:""},{key: 'Product Description',placeholder:"Enter the Description",value:""}, {key: 'Manufacturer',placeholder:"Enter the Manufacturer",value:""},{key: 'Category',placeholder:"Enter the Category",value:""},  
         {key: 'Sub-Category',placeholder:"Enter the Sub-Category",value:""},{key: 'Product Class',placeholder:"Enter the Product Class",value:""},{key: 'UPC/Barcode',placeholder:"Enter the UPC",value:""},  
-        {key: 'MOQ',placeholder:"Enter the MOQ",value:""},{key: 'Qty On Hand',placeholder:"Enter the Qty on Hand",value:""}, {key: 'Base Price',placeholder:"Enter the Base Price",value:""},  
-        {key: 'Selling Price',placeholder:"Enter the Selling Price",value:""},{key: 'Cost1',placeholder:"Enter the cost1",value:""},{key: 'Cost2',placeholder:"Enter the Cost2",value:""},  
+        {key: 'Qty On Hand',placeholder:"Enter the Qty on Hand",value:""}, {key: 'Base Price',placeholder:"Enter the Base Price",value:""},  
         {key: 'UOM',placeholder:"Enter the UOM",value:""},{key: 'Size',placeholder:"Enter the Size",value:""},{key: 'Weight',placeholder:"Enter the Weight",value:""},  
         {key: 'Pack',placeholder:"Enter the Pack",value:""}, {key: 'Extra Info 1',placeholder:"Enter the Extra Info1",value:""},{key: 'Extra Info 2',placeholder:"Enter the Extra Info 2",value:""},  
         {key: 'Extra Info 3',placeholder:"Enter the Extra Info 3",value:""},{key: 'Extra Info 4',placeholder:"Enter the Extra Info 4",value:""},{key: 'Extra Info 5',placeholder:"Enter the Extra Info 5",value:""}  
@@ -127,15 +126,26 @@ value={item.value}
 componentDidMount(){
   this.state.arrayHolder[0].value=this.props.navigation.getParam('itemid','')
   this.state.arrayHolder[1].value=this.props.navigation.getParam('desc','')
-  this.state.arrayHolder[8].value=this.props.navigation.getParam('onHand','')
+  this.state.arrayHolder[8].value=this.props.navigation.getParam('price','')
   this.state.id=this.props.navigation.getParam('id','')
-  // this.state.arrayHolder[0].value=this.props.navigation.getParam('itemImage','')
-  // this.state.arrayHolder[0].value=this.props.navigation.getParam('qty','0')
-  // this.state.Sourcefile=this.props.navigation.getParam('from','')
-  this.state.arrayHolder[9].value=this.props.navigation.getParam('price','0')
-  this.state.arrayHolder[10].value=this.props.navigation.getParam('price','0')
   this.state.arrayHolder[6].value=this.props.navigation.getParam('upc','')
-  this.state.arrayHolder[15].value=this.props.navigation.getParam('weight','')
+  this.state.arrayHolder[11].value=this.props.navigation.getParam('weight','')
+  var itemdetails =this.props.navigation.getParam('itmdetails','');
+  this.state.arrayHolder[2].value=itemdetails.manufacturer;
+  this.state.arrayHolder[3].value=itemdetails.category
+  this.state.arrayHolder[4].value=itemdetails.subcategory
+  this.state.arrayHolder[5].value=itemdetails.class
+  this.state.arrayHolder[7].value=this.props.navigation.getParam('onHand','')
+  this.state.arrayHolder[9].value=itemdetails.uom
+  this.state.arrayHolder[10].value=itemdetails.size
+  this.state.arrayHolder[12].value=itemdetails.pack
+  this.state.arrayHolder[13].value=itemdetails.extrainfo1
+  this.state.arrayHolder[14].value=itemdetails.extrainfo2
+  this.state.arrayHolder[15].value=itemdetails.extrainfo3
+  this.state.arrayHolder[16].value=itemdetails.extrainfo4
+  this.state.arrayHolder[17].value=itemdetails.extrainfo5
+
+
   this.forceUpdate();
  
   let editable = true;
@@ -155,17 +165,62 @@ submitebuttonPressed=()=>{
   var ItemArray =[...commonData.getinventoryItemsArray()];
   let index =ItemArray.indexOf(item=>item.itemid==this.state.arrayHolder[0].value);
   ItemArray.splice(index,1);
-  ItemArray.push({id:this.state.id,itemid:this.state.arrayHolder[0].value,description:this.state.arrayHolder[1].value,
-  mfd:this.state.arrayHolder[2].value,category:this.state.arrayHolder[3].value,
-sub_cat:this.state.arrayHolder[4].value,class:this.state.arrayHolder[5].value,UPC:this.state.arrayHolder[6].value,
-moq:this.state.arrayHolder[7].value,stock:this.state.arrayHolder[8].value,
-base_price:this.state.arrayHolder[9].value,selling_price:this.state.arrayHolder[10].value,
-cost1:this.state.arrayHolder[11].value,cost2:this.state.arrayHolder[12].value,
-uom:this.state.arrayHolder[13].value,size:this.state.arrayHolder[14].value,
-weight:this.state.arrayHolder[15].value,pack:this.state.arrayHolder[16].value,
-exta1:this.state.arrayHolder[17].value,exta2:this.state.arrayHolder[18].value,exta3:this.state.arrayHolder[19].value,
-exta4:this.state.arrayHolder[20].value,exta5:this.state.arrayHolder[21].value
+//   ItemArray.push({id:this.state.id,itemid:this.state.arrayHolder[0].value,description:this.state.arrayHolder[1].value,
+//   mfd:this.state.arrayHolder[2].value,category:this.state.arrayHolder[3].value,
+// sub_cat:this.state.arrayHolder[4].value,class:this.state.arrayHolder[5].value,UPC:this.state.arrayHolder[6].value,
+// moq:this.state.arrayHolder[7].value,stock:this.state.arrayHolder[8].value,
+// base_price:this.state.arrayHolder[9].value,selling_price:this.state.arrayHolder[10].value,
+// cost1:this.state.arrayHolder[11].value,cost2:this.state.arrayHolder[12].value,
+// uom:this.state.arrayHolder[13].value,size:this.state.arrayHolder[14].value,
+// weight:this.state.arrayHolder[15].value,pack:this.state.arrayHolder[16].value,
+// exta1:this.state.arrayHolder[17].value,exta2:this.state.arrayHolder[18].value,exta3:this.state.arrayHolder[19].value,
+// exta4:this.state.arrayHolder[20].value,exta5:this.state.arrayHolder[21].value
+// });
+// ItemArray.push({id:this.state.id,
+//   itemid:this.state.arrayHolder[0].value,
+//   description:this.state.arrayHolder[1].value,
+//   mfd:this.state.arrayHolder[2].value,
+//   category:this.state.arrayHolder[3].value,
+// sub_cat:this.state.arrayHolder[4].value,
+// class:this.state.arrayHolder[5].value,
+// UPC:this.state.arrayHolder[6].value,
+// moq:this.state.arrayHolder[7].value,
+// stock:this.state.arrayHolder[8].value,
+// base_price:this.state.arrayHolder[9].value,
+// selling_price:this.state.arrayHolder[10].value,
+// cost1:this.state.arrayHolder[11].value,
+// cost2:this.state.arrayHolder[12].value,
+// uom:this.state.arrayHolder[13].value,
+// size:this.state.arrayHolder[14].value,
+// weight:this.state.arrayHolder[15].value,
+// pack:this.state.arrayHolder[16].value,
+// exta1:this.state.arrayHolder[17].value,
+// exta2:this.state.arrayHolder[18].value,
+// exta3:this.state.arrayHolder[19].value,
+// exta4:this.state.arrayHolder[20].value,
+// exta5:this.state.arrayHolder[21].value
+// });
+ItemArray.push({id:this.state.id,
+  itemid:this.state.arrayHolder[0].value,
+  description:this.state.arrayHolder[1].value,
+  mfd:this.state.arrayHolder[2].value,
+  category:this.state.arrayHolder[3].value,
+sub_cat:this.state.arrayHolder[4].value,
+class:this.state.arrayHolder[5].value,
+UPC:this.state.arrayHolder[6].value,
+stock:this.state.arrayHolder[7].value,
+base_price:this.state.arrayHolder[8].value,
+uom:this.state.arrayHolder[9].value,
+size:this.state.arrayHolder[10].value,
+weight:this.state.arrayHolder[11].value,
+pack:this.state.arrayHolder[12].value,
+exta1:this.state.arrayHolder[13].value,
+exta2:this.state.arrayHolder[14].value,
+exta3:this.state.arrayHolder[15].value,
+exta4:this.state.arrayHolder[16].value,
+exta5:this.state.arrayHolder[17].value
 });
+
 commonData.setinventoryItemsArray(ItemArray);
 this.props.navigation.goBack();
   return;
@@ -191,8 +246,8 @@ getListViewItem = (item) => {
             <Text style={{  color: '#1B1BD0',backgroundColor:' #FFFFFF', fontSize: 20, height: 50,marginHorizontal:40,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:22,alignSelf:'center',textAlign:"center",justifyContent:'center',marginTop:10}}>Add Item Details</Text>
 
         </View>
-            </View>
-             
+    </View>
+        {/* <View style={{height:height-300}}>   */}
       <ScrollView 
     contentContainerStyle={{
         flexDirection: 'row',
@@ -236,6 +291,7 @@ value={item.value}
         );
       })}
     </ScrollView>
+    {/* </View>    */}
       {/* <View style={{ backgroundColor: '#FFFFFF',height:height-200}}> */}
           {/* <KeyboardAvoidingView enabled> */}
       {/* <ScrollView style={{ backgroundColor: '#FFFFFF',}} 
@@ -266,10 +322,11 @@ value={item.value}
       */}
 
       {/* </View> */}
-     
+     <View style={{paddingBottom:10}}>
       <TouchableOpacity onPress={()=>{this.submitebuttonPressed()}} style={{flexDirection:'row',borderRadius: 20,alignSelf:'center',backgroundColor: '#1B1BD0', width: screenwidth-100, height: 40 ,marginTop:10}}>
            <Text style={{ width: screenwidth-100,color:'white',fontSize: 16,borderRadius: 20,fontFamily:'Lato-Regular',alignSelf:'center', height: 40, textAlignVertical:'center',backgroundColor:  '#1B1BD0',textAlign:'center' ,alignSelf:'center'}}>Submit</Text>
          </TouchableOpacity>
+         </View>
          {/* </KeyboardAvoidingView> */}
       </SafeAreaView>
     );

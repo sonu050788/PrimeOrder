@@ -100,7 +100,7 @@ class CreateOrder extends Component {
           body: JSON.stringify({
             "__module_code__": "PO_14",
             "__query__": "username='"+uname+"' && customerid='"+variable+"'",
-            "__orderby__": "",
+            "__orderby__": "date_entered DESC",
             "__offset__": 0,
             "__select _fields__": [""],
             "__max_result__": 1,

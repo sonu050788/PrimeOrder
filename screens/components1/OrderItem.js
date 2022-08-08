@@ -629,23 +629,32 @@ itemPresent=()=>{
   }
   newsaveorder=()=>{
     console.log("my orders are saving here.................")
+    
     var oid = commonData.getOrderId()
     let uname=commonData.getusername();
     let custid=commonData.getActiveCustomerID();
     let address=commonData.getActiveAdress();
     let cname=commonData.getcustomerName();
     let cqty=commonData.getTotalPrice();
-
+    
     console.log(cqty, "oid-----cqty");
     var filename = 'UN_'+oid+'CNID-'+custid+'Nme-'+cname+'ADD-'+address+'LNT-'+this.state.ItemArray.length.toString()+'cntP-'+cqty+'.json'
     var dir = RNFS.DocumentDirectoryPath + '/unsent_folder' + '/'+ uname+'/';
-    var path = dir + filename;
+    if(this.state.From=='UN')
+    filename=commonData.getcurrentfile();
+      var path = dir + filename;
     RNFS.mkdir(dir,{NSURLIsExcludedFromBackupKey:true});
+    var savearray=[];
+    var orderdetails=[];
+    orderdetails.push({custid:cname,oid:oid,cname:cname,address:address,LNT:this.state.ItemArray.length.toString(),cqty:cqty})
     var json = JSON.stringify(this.state.ItemArray);
+        savearray.push({record:orderdetails,items:this.state.ItemArray})
+        var json = JSON.stringify(savearray);
+    // json=JSON.stringify(savearray);
     RNFS.writeFile(path, json, 'utf8')
       .then((success) => {
         console.log('FILE WRITTEN!');
-        console.log(path,"file wriiteen...........path is here.......")
+        console.log(path,"file wriiteen...........path is here.......savearraysavearray",savearray);
       })
       .catch((err) => {
         console.log(err.message);
@@ -1936,8 +1945,8 @@ value={this.state.headernumber}
     this.resignView();
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor:'black' }}>
-        <View style={{ height: 40, backgroundColor: 'black', flexDirection: 'row-reverse' }}>
-          <TouchableOpacity onPress={this.closeCamera} style={{ marginVertical: 5, height: 30, width: 70, backgroundColor: '#FF7D6B', borderRadius: 25 }}><Text style={{ textAlign: 'center', textAlignVertical: 'center' }}>cancel</Text></TouchableOpacity>
+        <View style={{ height: 40,width:width-20,alignself:'center', backgroundColor: 'black', flexDirection: 'row-reverse' }}>
+          <TouchableOpacity onPress={this.closeCamera} style={{ marginVertical: 5, height: 30, width: 70, backgroundColor: '#FF7D6B', borderRadius: 25 }}><Text style={{ textAlign: 'center', textAlignVertical: 'center' ,height:30,width: 70}}>cancel</Text></TouchableOpacity>
         </View>
         <CameraKitCameraScreen
           showFrame={true}
@@ -1963,10 +1972,10 @@ AddItem = (Qty,itemid,type) => {
 SignItemsView = ({ item, index }) => (
 <View style={styles.flatliststyle1}>  
   <View style={{ flexDirection: "row",justifyContent:'center',alignItems:'center', backgroundColor:'#ffffff',width:width-10,alignSelf:'center' ,height:40}} >
-   <Text style={{color:'#34495A',borderBottomColor:'#7A7F85',fontWeight:'200',fontFamily:'Lato-Bold',fontSize:12, width:width/2.5,marginHorizontal:20}}>{item.description}</Text>
+   <Text style={{color:'#34495A',borderBottomColor:'#7A7F85',fontWeight:'200',fontFamily:'Lato-Bold',fontSize:10,height:40, width:width/2.5,marginHorizontal:20}}>{item.description}</Text>
    <Text style={{color:'#34495A',borderBottomColor:'#7A7F85',fontWeight:'200',fontFamily:'Lato-Bold',fontSize:12,width:width/4.5,marginHorizontal:2}}>{Number(item.qty)}</Text>
    <Text style={{color:'#34495A',borderBottomColor:'#7A7F85',fontWeight:'200',fontFamily:'Lato-Bold',fontSize:12,width:width/3.5,marginHorizontal:2}}>₹{Number(item.price)}</Text>
-  </View>
+  </View> 
 </View>
  
 )

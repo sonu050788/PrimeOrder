@@ -138,11 +138,18 @@ class AddProduct extends Component {
          "category": ItemArray[i].category,
          "subcategory": ItemArray[i].sub_cat,
          "unitofmeasure": ItemArray[i].uom,
-         "pack": 10,
+         "pack": ItemArray[i].pack,
          "size":ItemArray[i].size,
          "weight":ItemArray[i].weight,
          "extrainfo1":ItemArray[i].exta1,
-         "stock_c":ItemArray[i].stock
+         "extrainfo2":ItemArray[i].exta2,
+         "extrainfo3":ItemArray[i].exta3,
+         "extrainfo4":ItemArray[i].exta4,
+         "extrainfo5":ItemArray[i].exta5,
+         "extrainfo6":ItemArray[i].exta6,
+         "stock_c":ItemArray[i].stock,
+         "manufacturer":ItemArray[i].mfd,
+         "class":ItemArray[i].class
         }
       }
   )
@@ -433,9 +440,18 @@ elevation: 9 }}>DELETE ITEMS</Text>
                 </TouchableOpacity>
               </View>
               </View>
-              <View style={{height:42,width:width-30,alignSelf:'center',backgroundColor:'#ffffff',flexDirection:'column'}}>
+              <View style={{height:52,width:width-30,alignSelf:'center',backgroundColor:'#ffffff',flexDirection:'column'}}>
               <Text style={{fontFamily:'Lato-Bold',fontSize:12}}>Instructions:</Text>
-                    <View style={{flexDirection:'row'}}>
+              <View style={{flexDirection: 'row',height:22}}>
+      <Text>{'\u2022'}</Text>
+      <Text style={{flex: 1, paddingLeft: 5,fontSize:12}}>Scan upc or enter item id to edit</Text>
+    </View>
+    <View style={{flexDirection: 'row',height:22}}>
+      <Text>{'\u2022'}</Text>
+      <Text style={{flex: 1, paddingLeft: 5,fontSize:12}}>Click on + button to add new item</Text>
+    </View>
+
+                    {/* <View style={{flexDirection:'row'}}>
                    <Text style={{width:4,height:4,borderRadius:6,backgroundColor:"black"}}></Text>
                    <Text style={{height:12,fontFamily:'Lato-regular',fontSize:9}}> Scan upc or enter item id to edit</Text>
                 
@@ -445,7 +461,7 @@ elevation: 9 }}>DELETE ITEMS</Text>
                   <Text style={{width:4,height:4,borderRadius:6,backgroundColor:"black"}}></Text>
                   <Text style={{height:12,fontFamily:'Lato-regular',fontSize:9,textAlignVertical:'center'}}> Click on + button to add new item</Text>
                  
-                  </View>
+                  </View> */}
               </View>
             <ScrollView style={{ backgroundColor: '#FFFFFF',}} 
                 contentContainerStyle={styles.ScrollView}

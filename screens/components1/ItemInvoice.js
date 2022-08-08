@@ -156,7 +156,7 @@ this.setState({ JSONResult: newData });
     SignItemsView = ({ item, index }) => (
         <View style={styles.flatliststyle1}>  
           <View style={{ flexDirection: "row",justifyContent:'center',alignItems:'center', backgroundColor:'#ffffff',width:width-10,alignSelf:'center' ,height:40}} >
-           <Text style={{color:'#34495A',borderBottomColor:'#7A7F85',fontWeight:'200',fontFamily:'Lato-Bold',fontSize:12, width:width/2.5,marginHorizontal:20}}>{item.name_value_list.description.value}</Text>
+           <Text style={{color:'#34495A',borderBottomColor:'#7A7F85',fontWeight:'200',fontFamily:'Lato-Bold',fontSize:10, width:width/2.5,marginHorizontal:20}}>{item.name_value_list.description.value}</Text>
            <Text style={{color:'#34495A',borderBottomColor:'#7A7F85',fontWeight:'200',fontFamily:'Lato-Bold',fontSize:12,width:width/4.5,marginHorizontal:2}}>{Number(item.name_value_list.quantity.value)}</Text>
            <Text style={{color:'#34495A',borderBottomColor:'#7A7F85',fontWeight:'200',fontFamily:'Lato-Bold',fontSize:12,width:width/3.5,marginHorizontal:2}}>₹{Number(item.name_value_list.price.value)}</Text>
           </View>
@@ -175,7 +175,7 @@ this.setState({ JSONResult: newData });
         
     }
     render() {
-        const scrollEnabled = this.state.screenHeight > height;
+        const scrollEnabled = this.state.screenHeight > 130;
         this.state.searchmsg=this.state.JSONResult.length+' Results'
         var price=commonData.getTotalPrice().split("₹")[1];
         var totalsavings=0;

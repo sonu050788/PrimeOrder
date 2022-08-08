@@ -40,7 +40,7 @@ import PushNotification from "react-native-push-notification";
   const value = await AsyncStorage.getItem('Username');
   myHeaders.append("Content-Type", "application/json");
   
-  var raw = JSON.stringify({"__module_code__":"PO_14","__query__":"username='"+value+"'","deleted":0});
+  var raw = JSON.stringify({"__module_code__":"PO_14","__query__":"username='"+value+"'","__orderby__": "date_entered DESC","deleted":0});
   
   var requestOptions = {
     method: 'POST',

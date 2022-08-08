@@ -28,7 +28,12 @@ class unsentscreen extends Component {
       this.ReloadItems();
       });
   }
+gettotalprice=(item)=>{
 
+}
+gettotalqty=(item)=>{
+
+}
   ReloadItems(){
     this.setState({
       loading:false
@@ -70,26 +75,33 @@ class unsentscreen extends Component {
   console.log(filename.orderstatus,"order status is here")
   console.log(filename.name,"hi my filename is here..............")
   var dir = RNFS.DocumentDirectoryPath + '/unsent_folder' + '/'+ uname+'/';
+
   var path = dir+filename.orderid;
   var pathvar = filename.orderid.substring(3,filename.orderid.length-5);
-  commonData.setOrderId(pathvar)
-  
+  // commonData.setOrderId(pathvar)
+  commonData.setcurrentfile(filename.name);
   var custid = filename.customerid;
   var custname = filename.custname;
   var address=filename.address;
-commonData.setCustInfo(custid,custname,address)
+// commonData.setCustInfo(custid,custname,address)
   console.log(path,"my path is here please check")
   var that = this
   RNFS.readFile(path, 'utf8')
       .then((contents) => {
         console.log(contents);
-        currentArra = JSON.parse(contents)
+        var filecontent=JSON.parse(contents);
+        console.log("file contents",filecontent[0].record[0],"*****items",filecontent[0].items);
+        pathvar = filecontent[0].record[0].oid.substring(3,filecontent[0].record[0].oid.length-5);
+        commonData.setOrderId(pathvar)
+        commonData.setCustInfo(filecontent[0].record[0].custid,filecontent[0].record[0].cname,filecontent[0].record[0].address)
+        // currentArra = JSON.parse(filecontent[0].items)
+        currentArra=filecontent[0].items;
         commonData.setUnsentOrders(currentArra)
         that.setState({
           contentsvariable:contents
         })
         contentlocal=contents
-         console.log(commonData.getUnsentOrders(), "props to the next screen is here")
+         console.log(commonData.getUnsentOrders(), "props to the next screen isrecord[0] here")
          commonData.setContext('UN')
          commonData.setArray(currentArra)
          that.props.navigation.navigate('OrderItem',{PATH:currentArra,PATH1:path,From:'UN',TYPE:"" })
@@ -210,7 +222,6 @@ sampleRenderItem = ({ item }) => (
   <View style={{flexDirection:'row'}}>
   <View style={{flexDirection:"row",width: 80}}>
           <TouchableOpacity style={{height: 100, width: 80,marginHorizontal:39}}>
-              {/* <Image transition={false} source={require('../components1/images/right.png')} style={{ height: 40, width: 40, marginTop: 30,marginHorizontal:25, resizeMode: 'contain' }} /> */}
               <Text style={{backgroundColor:'orange',textAlign:'center',textAlignVertical:'center', height: 40, width: 40, marginTop: 40,borderRadius:30,fontFamily:'Lato-Regular',fontSize:18}}>UN</Text>
           </TouchableOpacity>
           <Text  style={{color:'#1B1BD0',fontFamily:'Lato-Regular',marginTop:90,width: 60,marginHorizontal:-120}}>{item.orderstatus}</Text>

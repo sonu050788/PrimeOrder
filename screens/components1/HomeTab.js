@@ -345,7 +345,7 @@ async loadorders(){
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", " application/json");
   
-  var raw = "{\n\"__module_code__\": \"PO_14\",\n\"__query__\": \"created_by_name='"+uname+"'\",\n\"__orderby__\": \"\",\n\"__offset__\": 0,\n\"__select _fields__\": [\"\"],\n\"__max_result__\": 1,\n\"__delete__\": 0\n}";  var requestOptions = {
+  var raw = "{\n\"__module_code__\": \"PO_14\",\n\"__query__\": \"created_by_name='"+uname+"'\",\n\"__orderby__\": \"date_entered DESC\",\n\"__offset__\": 0,\n\"__select _fields__\": [\"\"],\n\"__max_result__\": 1,\n\"__delete__\": 0\n}";  var requestOptions = {
     method: 'POST',
     headers: myHeaders,
     body: raw,
@@ -370,7 +370,7 @@ async loadorders(){
         body: JSON.stringify({
           "__module_code__": "PO_14",
           "__query__": "username = '" + value + "'",
-          "__orderby__": "",
+          "__orderby__": "date_entered DESC",
           "__offset__": 0,
           "__select _fields__": [""],
           "__max_result__": 1,
@@ -574,7 +574,7 @@ readSku(){
       body: JSON.stringify({
         "__module_code__": "PO_14",
         "__query__": "created_by_name='"+variable+"'",
-        "__orderby__": "",
+        "__orderby__": "date_entered DESC",
         "__offset__": 0,
         "__select _fields__": [""],
         "__max_result__": 1,
@@ -729,7 +729,7 @@ readSku(){
                                
            
         </View> 
-         <View style={{marginTop:10,borderRadius:10,flexDirection:'row',height:40,backgroundColor:'#ffffff',width:width-80,alignSelf:'center'
+         <View style={{marginTop:-10,borderRadius:10,flexDirection:'row',height:40,backgroundColor:'#ffffff',width:width-80,alignSelf:'center'
   
   }}>
     
@@ -835,29 +835,26 @@ readSku(){
           </View>
        
           <View style={{ backgroundColor: '#ffffff', marginTop:-30, height: 200, alignSelf:'center',width:screenheight,alignitems:'center'}}>
-            {commonData.isOrderOpen ? <Card style={{ height: 180, width:width-30, backgroundColor: 'white',alignSelf:'center',justifyContent:'center',borderRadius:20}}>
+            {commonData.isOrderOpen ? 
+            <Card style={{ height: 180, width:width-30, backgroundColor: 'white',alignSelf:'center',justifyContent:'center',borderRadius:20}}>
               <Text style={{alignSelf:'center',justifyContent:'center',textAlign:'center',marginTop:10,fontFamily:'Lato-Bold',fontSize:20,fontWeight:'700'}}>{this.state.custname}</Text>
               <Text style={{color:'#707070',fontFamily:'Lato-Bold',fontSize:14,width:300,alignSelf:'center',textAlign:'center'}}>{this.state.custaddress}</Text>
-           
               <View style={{ flexDirection: 'row', marginTop:10,flex:3 }}>
                 <View style={{flexDirection:'column',width:120,alignItems:'center',flex:1}}>
                 <Text style={{  fontSize: 17, color: '#313841', fontFamily:'Lato-Bold',fontWeight:'700' }}>
                 {this.state.TotalAmount}</Text>
                 <Text style={{ color: '#707070', fontSize: 10, fontFamily: 'Lato-Bold' }}>Amount</Text>
-
                   </View>
                   <View style={{flexDirection:'column',width:100,alignItems:'center',flex:1}}>
                 <Text style={{  fontFamily:'Lato-Bold', fontSize: 17, color: '#313841',fontWeight:'700'}}>
                   {this.state.items}</Text>
                   <Text style={{ color: '#707070', fontSize: 10, fontFamily: 'Lato-Bold' }}>Total Items</Text>
-
                   </View>
                   <View style={{flexDirection:'column',width:140,alignItems:'center',flex:1}}>
-                <Text style={{ fontFamily:'Lato-Bold', color:'#313841', fontSize: 17,fontWeight:'700' }}>
+                 <Text style={{ fontFamily:'Lato-Bold', color:'#313841', fontSize: 17,fontWeight:'700' }}>
                   {this.state.totalqty}
                 </Text>
                 <Text style={{ color: '#707070', fontSize: 10, fontFamily: 'Lato-Bold' }}>Total Qty</Text>
-
                 </View>
               </View>
        

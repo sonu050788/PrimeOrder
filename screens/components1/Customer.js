@@ -228,13 +228,6 @@ AddItemsToOrder=(itemarray)=>{
           this.getOrderListCall(item.name)
       
           this.checknetwork();
-          // if(this.connection_Status=="ONLINE"){
-          //   this.state.loading=true
-          //   let result = this.getOrderListCall(item.name)
-          // }else{
-          //   this.state.loading=false
-          //  Alert.alert("Please check your internect connection")
-          //  }
           
           this.forceUpdate()
     }
@@ -245,12 +238,10 @@ AddItemsToOrder=(itemarray)=>{
       commonData.setOrderId(val)
       this.state.orderid=val
       this.state.id=val
-     
       var address=item.addressline1+','+item.state +'-'+item.postalcode
       commonData.setCustInfo(item.storeid,item.name,address)
       finishedGettingItems=false
       this.getreturnList(item.name);
-     
       commonData.setemail(item.email);
      
     }else if(this.state.From=="OG"){
@@ -487,7 +478,7 @@ async getreturnList(name){
       var returnqty=result.entry_list[j].name_value_list.quantity.value-result.entry_list[j].name_value_list.return_qty.value
        OrderHistoryArray.push({'itemid':result.entry_list[j].name_value_list.productid.value,'orderid':result.entry_list[j].name_value_list.orderid.value,'qty':result.entry_list[j].name_value_list.quantity.value,'rqty':returnqty})
      }
-    
+    console.log("********m here return********",OrderHistoryArray);
        for(var i=0;i<skuarray.length;i++){
          for(var j=0;j<OrderHistoryArray.length;j++){
        if(OrderHistoryArray[j].itemid == skuarray[i].itemid)
@@ -508,9 +499,7 @@ async getreturnList(name){
         return;
       }
    
-      // that.props.navigation.navigate('OrderItem')
-   
-    //  commonData.setorderitemArray(...temparray)
+    
     OrderHistoryArray=[];
     OrderHistoryArray=[...temparray];
      commonData.setcustomerName(name);
@@ -518,8 +507,6 @@ async getreturnList(name){
      
       that.props.navigation.navigate('OrderItem',{"IT":temparray," From":'RETURN','TYPE':"RETURN"})
 
-      // that.forceUpdate();
-  
   }).catch(function (error) {
     console.log("-------- error ------- " + error);
   });
@@ -595,7 +582,9 @@ let orderList=[]
               body: JSON.stringify({
                 __module_code__: "PO_14",
                 __query__:"customerid='"+storeid+"'AND username = '" + variable + "'",
+                __orderby__: "date_entered DESC",
                   __offset__:0,
+                  __delete__: 0,
               })
      
   }).then(function (response) {
@@ -683,15 +672,7 @@ that.state.loading=false
     }
     return (
       <SafeAreaView style={{backgroundColor:'#FFFFFF',flex:1}}>
-        {/* <View style={{flexDirection:'row',marginTop:30}}>
-        <TouchableOpacity style={{borderRadius:20, height:60,width:width/3-10, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
-                 <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"center", alignSelf:'center'}} />
-          </TouchableOpacity> 
-            <Text style={{  color: '#1B1BD0',backgroundColor:' #FFFFFF',fontSize: 20,width:width/3+30, height: 50,fontFamily:'Lato-Regular' ,fontWeight:'bold',fontSize:22,alignSelf:'center',textAlign:"center",justifyContent:'center'}}>Stores</Text>
-            <TouchableOpacity onPress={() =>this.synccall()} style={{marginTop:10,width:width/3-20}}>
-             <Image transition={false} source={require('../components1/images/sync.png')} style={{height:25,width:25,resizeMode:'contain',alignSelf:'center'}}></Image>
-            </TouchableOpacity>
-      </View>  */}
+       
       <View style={{flexDirection:'row',marginTop:30}}>
         <TouchableOpacity style={{borderRadius:20, height:60,width:width/3-10, justifyContent:'center', alignItems:'center' }} onPress={()=>this.props.navigation.goBack()}>           
                  <Image transition={false} source={require('../components1/images/arrow.png')} style={{height:35,width:35,  resizeMode:"contain", alignSelf:'center'}} />

@@ -253,39 +253,68 @@ elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
     }
      sampleRenderItem = ({ item, index }) => (
         
-        <View style={styles.flatliststyle}>
-          <ImageBackground source={require('./images/itembg.png')} style={styles.flatrecord}>
-            <View style={{flexDirection:'row'}}>
-            <View style={{flexDirection:"row"}}>
-            <TouchableOpacity style={{height: 80, width: 80,marginHorizontal:39,marginTop:27}} onPress={() => this.props.navigation.navigate('Itemdetails',
-                       {storeID:item.itemid,desc:item.description,onHand:item.extrainfo1,itemImage:require('./images/itemImage/IRG-14.jpg'), qty:item.qty,from:'SKU',price:item.price,upc:item.upc,weight:item.weight})}>
-                <Image source={require('./images/itemImage/IRG-14.jpg')} style={{ height: 80, width: 80, marginTop: 10,marginHorizontal:0, resizeMode: 'contain' }} />
-            </TouchableOpacity>
-            <Text  style={{color:'#34495A',fontFamily:'Lato-Regular',marginTop:120,marginHorizontal:-100}}>{item.itemid}</Text>
-            <Image source={require('./images/line.png')} style={{ height: 100, width: 80, marginTop: 33,marginHorizontal:83, resizeMode: 'contain' }} />
-            </View>
-            <View style={{marginHorizontal:-110,}}>
-              <Text style={{color:'#7A7F85',borderBottomColor:'#7A7F85',fontFamily:'Lato-Regular',marginTop:23}}>Net wt: {Number(item.weight)} {item.unitofmeasure}</Text>
-              <Image source={require('./images/dash.png')} style={{ height: 10, width: 80, resizeMode: 'contain' }} />
-              <Text style={{color:'#34495A',fontWeight:"500",fontFamily:'Lato-Bold',fontSize:14,marginTop:0,width:190}}>{item.description}</Text>
-              <Text style={{color:'#1D8815',fontFamily:'Lato-Regular',fontSize:12,marginTop:10}}>{item.stock} - On Hand</Text>
-              <Text style={{color:'grey',fontFamily:'Lato-Bold',fontSize:12,marginTop:10}}>{item.noofdays} days Older</Text>
-            </View>
-            <Text style={{color:'grey',borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold',marginTop:20,marginHorizontal:99}}>₹{item.price}</Text>
-            <View style={{ width: 120, height: 40, flexDirection: 'row',marginTop:88,marginHorizontal:-225, borderRadius: 5, borderColor: 'grey', backgroundColor: '#ffffff' }}>
-                    <TouchableOpacity  style={{ width: 30, height: 40 }}>
-                    </TouchableOpacity>
-                    <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
+        // <View style={styles.flatliststyle}>
+        //   <ImageBackground source={require('./images/itembg.png')} style={styles.flatrecord}>
+        //     <View style={{flexDirection:'row'}}>
+        //     <View style={{flexDirection:"row"}}>
+        //     <TouchableOpacity style={{height: 80, width: 80,marginHorizontal:39,marginTop:27}} onPress={() => this.props.navigation.navigate('Itemdetails',
+        //                {storeID:item.itemid,desc:item.description,onHand:item.stock,itemImage:require('./images/itemImage/IRG-14.jpg'), qty:item.qty,from:'SKU',price:item.price,upc:item.upc,weight:item.weight})}>
+        //         <Image source={require('./images/itemImage/IRG-14.jpg')} style={{ height: 80, width: 80, marginTop: 10,marginHorizontal:0, resizeMode: 'contain' }} />
+        //     </TouchableOpacity>
+        //     <Text  style={{color:'#34495A',fontFamily:'Lato-Regular',marginTop:120,marginHorizontal:-100}}>{item.itemid}</Text>
+        //     <Image source={require('./images/line.png')} style={{ height: 100, width: 80, marginTop: 33,marginHorizontal:83, resizeMode: 'contain' }} />
+        //     </View>
+        //     <View style={{marginHorizontal:-110,}}>
+        //       <Text style={{color:'#7A7F85',borderBottomColor:'#7A7F85',fontFamily:'Lato-Regular',marginTop:23}}>Net wt: {Number(item.weight)} {item.unitofmeasure}</Text>
+        //       <Image source={require('./images/dash.png')} style={{ height: 10, width: 80, resizeMode: 'contain' }} />
+        //       <Text style={{color:'#34495A',fontWeight:"500",fontFamily:'Lato-Bold',fontSize:14,marginTop:0,width:190}}>{item.description}</Text>
+        //       <Text style={{color:'#1D8815',fontFamily:'Lato-Regular',fontSize:12,marginTop:10}}>{item.stock} - On Hand</Text>
+        //       <Text style={{color:'grey',fontFamily:'Lato-Bold',fontSize:12,marginTop:10}}>{item.noofdays} days Older</Text>
+        //     </View>
+        //     <Text style={{color:'grey',borderBottomColor:'#7A7F85',fontWeight:'900',fontFamily:'Lato-Bold',marginTop:20,marginHorizontal:99}}>₹{item.price}</Text>
+        //     <View style={{ width: 120, height: 40, flexDirection: 'row',marginTop:88,marginHorizontal:-225, borderRadius: 5, borderColor: 'grey', backgroundColor: '#ffffff' }}>
+        //             <TouchableOpacity  style={{ width: 30, height: 40 }}>
+        //             </TouchableOpacity>
+        //             <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
+        //             borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
+        //            fontSize: 12, width: 40, height: 30,marginTop:17,marginHorizontal:10}}>{item.qty}</Text>
+        //         </View>
+        //     </View>
+        //  </ImageBackground>
+        //  </View>
+            
+            
+      <View style={styles.flatliststyle}>
+      <ImageBackground source={require('./images/itembg.png')} style={styles.flatrecord}>
+        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:"row",backgroundColor:'#ffffff',width:100}}>
+        <TouchableOpacity style={{height: 80, width: 80,marginHorizontal:19,marginTop:27}} onPress={() => this.props.navigation.navigate('Itemdetails',
+                   {storeID:item.itemid,desc:item.description,onHand:item.stock,itemImage:require('./images/itemImage/IRG-14.jpg'), qty:item.qty,from:'SKU',price:item.price,upc:item.upc,weight:item.weight,items:item})}>
+            <Image source={require('./images/itemImage/IRG-14.jpg')} style={{ height: 80, width: 80, marginTop: 10,marginHorizontal:10, resizeMode: 'contain' }} />
+        </TouchableOpacity>
+        <Text  style={{color:'#34495A',fontFamily:'Lato-Regular',marginTop:120,marginHorizontal:-80}}>{item.itemid}</Text>
+        {/* <Image source={require('./images/line.png')} style={{ height: 100, width: 80, marginTop: 33,marginHorizontal:63, resizeMode: 'contain' }} /> */}
+        </View>
+        <View style={{marginHorizontal:39,flexDirection:'column'}}>
+          <Text style={{color:'#7A7F85',borderBottomColor:'#7A7F85',fontFamily:'Lato-Regular',marginTop:23}}>Net wt: {Number(item.weight)} {item.unitofmeasure}</Text>
+          <Image source={require('./images/dash.png')} style={{ height: 10, width: 80, resizeMode: 'contain' }} />
+          <Text style={{color:'#34495A',fontWeight:"500",fontFamily:'Lato-Bold',fontSize:14,marginTop:0,width:190,height:35}}>{item.description}</Text>
+          {(Number(item.stock)>0)?<Text style={{color:'#1D8815',fontFamily:'Lato-Regular',fontSize:12,marginTop:10}}>{item.stock} - On Hand</Text>:<Text style={{color:'red',fontFamily:'Lato-Regular',fontSize:12,marginTop:10}}>Out of stock!!</Text>}
+          <Text style={{color:'grey',fontFamily:'Lato-Bold',fontSize:12,marginTop:0}}>{item.noofdays} days Older</Text>
+          </View>
+          <View style={{height: 20, width: 20,marginHorizontal:-40,flexDirection:'column',alignItems:'center'}}>
+       
+        <Text style={{color:'#000000',borderBottomColor:'#000000',fontWeight:'100',textAlign:'center',fontFamily:'Lato-Bold',width:60,marginTop:20}}>₹{Number(item.price)}</Text>
+        <Text style={{ textAlign: 'center', textAlignVertical: 'center',borderWidth: 1,
                     borderColor: '#CAD0D6', alignContent: 'center', alignSelf: 'center', fontWeight: 'bold', 
                    fontSize: 12, width: 40, height: 30,marginTop:17,marginHorizontal:10}}>{item.qty}</Text>
-                    {/* <TouchableOpacity onPress={()=>{this.AddItem(item.qty,index,'+')}} style={{ width: 30, height: 40 }} >
-                        <Image source={require('./images/add.png')} style={{ width: 30, height: 30, marginTop: 12,marginHorizontal:-7}}></Image>
-                    </TouchableOpacity> */}
-                </View>
-            </View>
-         </ImageBackground>
-         </View>
-            
+      
+        </View>
+      
+        </View>
+     </ImageBackground>
+     </View>
+        
        
     )
     sampleRenderItem1 = ({ item }) => (

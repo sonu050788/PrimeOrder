@@ -366,14 +366,9 @@ shadowOffset: { width: 0, height: 2 },
 shadowOpacity: 0.5, marginHorizontal:5,
 shadowRadius: 2,borderRadius:10,
 elevation: 4 }} onPress={() => this.searchFilterFunction('')}>
-                     {/* <Image source={require('./images/cleartxt.png')} style={{marginTop:-15, height: '200%', width:'100%' }} /> */}
-                     {/* <LinearGradient
-              colors={['#ffffff', '#ffffff']}
-              style={styles.signIn}> */}
+            
               <Text style={styles.textSign}>Clear</Text>
-              {/* <MaterialIcons name="navigate-next" color="#fff" size={20} /> */}
-            {/* </LinearGradient> */}
-
+       
                     </TouchableOpacity>  
                     </View>
                 <View style={{backgroundColor:'#ffffff',height:40,width:width-20,alignSelf:'center', flexDirection:"column"}}>
