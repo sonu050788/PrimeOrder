@@ -442,6 +442,25 @@ gettypeArray(jsonData,code) {
     'email':object[i].name_value_list.email.value,
      'storeid': object[i].name_value_list.customerid.value})
   }
+  }else if(code=='PO_19')
+  {
+    for(var i=0; i< object.length;i++)
+  {
+    tempArray.push({ 'addressline1': object[i].name_value_list.billing_address_street.value,
+    'addressline2': object[i].name_value_list.billing_address_street_2.value,
+    'country': object[i].name_value_list.billing_address_country.value,
+    'state': object[i].name_value_list.billing_address_state.value,
+    'name': object[i].name_value_list.name.value,
+    'postalcode': object[i].name_value_list.billing_address_postalcode.value,
+    'creditlimit':object[i].name_value_list.annual_revenue.value,
+    'lastpaymentdate':object[i].name_value_list.lastpaymentdate.value,
+    'lastsaleamount':object[i].name_value_list.lastsaleamount.value,
+    'lastsaledate':object[i].name_value_list.lastsaledate.value,
+    'due_amount_c':object[i].name_value_list.annual_revenue.value,
+    'ispaymentdue':object[i].name_value_list.payment_due_c.value,
+    'email':object[i].name_value_list.email.value,
+     'storeid': object[i].name_value_list.storeid_c.value})
+  }
   }
   else if(code=='PO_12'){
  console.log("PO_12*****************",object);

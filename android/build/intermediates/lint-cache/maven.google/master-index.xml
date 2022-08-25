@@ -58,6 +58,7 @@
   <androidx.heifwriter/>
   <androidx.hilt/>
   <androidx.interpolator/>
+  <androidx.javascriptengine/>
   <androidx.leanback/>
   <androidx.legacy/>
   <androidx.lifecycle/>
